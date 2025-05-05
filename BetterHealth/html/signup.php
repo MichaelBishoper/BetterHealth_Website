@@ -30,8 +30,7 @@ unset($_SESSION['old'], $_SESSION['errors']);
   <?php endif; ?>
 
   <form action="action.php" method="post">
-    <!--This is the key that will let action now which case to use -->
-    <input type="hidden" name="action" value="signup"> 
+    <input type="hidden" name="action" value="signup">  <!--This is the key that will let action now which case to use -->
 
     <label for="username">Enter Your Username:</label>
     <input name="username" type="text" id="username" required value="<?= htmlspecialchars($username) ?>">

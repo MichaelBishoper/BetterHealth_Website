@@ -1,5 +1,5 @@
 <?php
-    function validate() {
+    function signup_validate() {
         require_once 'db.php';
         $conn = $GLOBALS['conn'];
     
