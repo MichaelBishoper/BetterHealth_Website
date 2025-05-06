@@ -295,7 +295,7 @@
                       <div class="col-md-12">
                          <div class="testimonial_section_2">
                             <h4 class="client_name_text">Dr. Simon Pretrikov <span class="quick_icon"><img src="images/quick-icon.png"></span></h4>
-                            <p class="customer_text">many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All themany variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some embarrassing hidden in the middle of text. All the</p>
+                            <p class="customer_text">This is a brilliant service, my daughter loves it! She's been growing so distant from me but ever since I signed her up to BetterHealth, she now takes care of herself regularly. That's a nice thing.</p>
                          </div>
                       </div>
                    </div>
@@ -308,8 +308,8 @@
                    <div class="row">
                       <div class="col-md-12">
                          <div class="testimonial_section_2">
-                            <h4 class="client_name_text">Monila <span class="quick_icon"><img src="images/quick-icon.png"></span></h4>
-                            <p class="customer_text">many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All themany variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some embarrassing hidden in the middle of text. All the</p>
+                            <h4 class="client_name_text">Deddy Mulyadi<span class="quick_icon"><img src="images/quick-icon.png"></span></h4>
+                            <p class="customer_text">I will send naughty students who don't use BetterHealth into some concentration camp in El Salvador!!!!!</p>
                          </div>
                       </div>
                    </div>
