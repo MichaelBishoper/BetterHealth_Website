@@ -21,7 +21,6 @@ unset($_SESSION['old'], $_SESSION['errors']);
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>BetterHealth Baby!!!</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -48,7 +47,7 @@ unset($_SESSION['old'], $_SESSION['errors']);
   display: flex;
   flex-direction: column;
   gap: 7px;
-  max-width: 300px;
+  width: 400px;
   text-align: center;
   border: 2px solid whitesmoke;
   align-items: center;
@@ -60,7 +59,7 @@ unset($_SESSION['old'], $_SESSION['errors']);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 105vh;
+  height: 115vh;
   }
 
   input[type=text], input[type=password], input[type=email] {

@@ -32,7 +32,6 @@ unset($_SESSION['errors']);
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>BetterHealth Baby!!!</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -59,7 +58,7 @@ unset($_SESSION['errors']);
   display: flex;
   flex-direction: column;
   gap: 7px;
-  max-width: 300px;
+  width: 400px;
   text-align: center;
   border: 2px solid whitesmoke;
   align-items: center;
@@ -71,7 +70,7 @@ unset($_SESSION['errors']);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 100vh;
   }
 
   input[type=text], input[type=password] {
@@ -160,7 +159,7 @@ unset($_SESSION['errors']);
             
         <button type="submit" value="Submit">Login</button>
     
-        <button type="button" onclick="window.location.href='signup.php'">Register</button>
+        <button type="button" onclick="window.location.href='signup.php'">Go to Register</button>
         <button class="cancelbtn" type="button" onclick="window.location.href='index.php'">Cancel</button>
       </form>
     </div>

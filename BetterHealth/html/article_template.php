@@ -75,9 +75,10 @@ if (isset($_GET['id'])) {
                 <li class="nav-item">
                    <a class="nav-link" href="login.php">Login</a>
                 </li>
-                <li class="nav-item">
-                   <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-                </li>
+                <?php if ($_SESSION['is_admin'] == 1): ?>
+                   <a class="nav-link" href="admin.php">Admin</a>
+                <?php endif; ?>
+               
                 
              </ul>
           </div>

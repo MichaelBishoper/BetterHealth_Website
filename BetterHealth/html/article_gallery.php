@@ -14,20 +14,84 @@ $result = $stmt->get_result();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <!-- owl stylesheets --> 
+      <link rel="stylesheet" href="css/owl.carousel.min.css">
+      <link rel="stylesheet" href="css/owl.theme.default.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+
     <title>Articles Gallery</title>
+    <style>
+        .flex-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .flex-item {
+            display: flex;
+            border: 1px solid #ccc;
+            align-items: center;
+            margin: 5px;
+            padding: 5px;
+        }
+        h1 {
+            text-align: center;
+            margin: 10px;
+        }
+        .site-header{
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Article Gallery</h1>
-    <?php while ($row = $result->fetch_assoc()) : ?>
-        <div>
-            <h2><?php echo htmlspecialchars($row['title']); ?></h2>
-            <p><?php echo htmlspecialchars($row['content']); ?></p>
-            <a href="article_template.php?id=<?php echo htmlspecialchars($row['id']); ?>">Read More</a>
+    <header class="site-header">
+    <nav class="nav-bar">
+        <a href="index.php">Home</a>
+        <a href="articles.php">Articles</a>
+        <?php if ($_SESSION['is_admin'] == 1): ?>
+            <a href="create_article.php">Add Articles</a>
+        <?php endif; ?>
+        <?php if ($_SESSION['is_admin'] == 1): ?>
+            <a href="admin.php">Admin</a>
+        <?php endif; ?>
+    </nav>
+    </header>
 
+    <h1>Article Gallery</h1>
+    <!-- Loop through Database -->
+    <?php while ($row = $result->fetch_assoc()) : ?>
+    <div class="flex-container">
+        <div class="flex-item">
+            <h2><?php echo htmlspecialchars($row['title']); ?></h2>
+            <p>Author: <?php echo htmlspecialchars($row['author']); ?></p>
             <p><strong>Published on:</strong> <?php echo htmlspecialchars($row['created_at']); ?></p>
+            <a href="article_template.php?id=<?php echo htmlspecialchars($row['id']); ?>">Read More</a>
         </div>
+    </div>
     <?php endwhile; ?>
+      
 </body>
 </html>
