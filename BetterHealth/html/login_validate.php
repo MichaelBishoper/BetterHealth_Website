@@ -42,10 +42,10 @@ function login_validate() {
             $_SESSION['username'] = $user['username'];
             $_SESSION['is_admin'] = $user['is_admin'];
             
-            // Verify session before redirect
+            // REDIRECTION BASED ON ADMIN OR NOT
             if (isset($_SESSION['user_id'])) {
                 if ($_SESSION['is_admin'] == 1) {
-                    header("Location: create_article.php");
+                    header("Location: admin.php");
                 } else {
                     header("Location: dashboard.php");
                 }

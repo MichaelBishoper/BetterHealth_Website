@@ -1,5 +1,5 @@
 <?php require_once 'db.php'; 
-
+session_start();
 
 // Check if 'id' is passed in URL
 if (isset($_GET['id'])) {
@@ -61,16 +61,16 @@ if (isset($_GET['id'])) {
                    <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                   <a class="nav-link" href="about.html">About Us</a>
+                   <a class="nav-link" href="index.php">About Us</a>
                 </li>
                 <li class="nav-item">
-                   <a class="nav-link" href="gallery.html">Gallery</a>
+                   <a class="nav-link" href="index.php">Gallery</a>
                 </li>
                 <li class="nav-item">
-                   <a class="nav-link" href="services.html">Services</a>
+                   <a class="nav-link" href="index.php">Services</a>
                 </li>
                 <li class="nav-item">
-                   <a class="nav-link" href="contact.html">Contact Us</a>
+                   <a class="nav-link" href="index.php">Contact Us</a>
                 </li>
                 <li class="nav-item">
                    <a class="nav-link" href="login.php">Login</a>

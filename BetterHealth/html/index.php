@@ -67,7 +67,7 @@
                            <a class="nav-link" href="logout.php" onclick="return confirmLogout();">Logout</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="account.php">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</a>
+                           <a class="nav-link" href="<?php echo ($_SESSION['is_admin'] == 1) ? 'admin.php' : 'account.php'; ?>">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</a>
                         </li>
                         <?php else: ?>
                         <!-- Show only when NOT logged in -->
@@ -256,7 +256,7 @@
            
 
       
-      <!-- services section end -->
+      <!-- Tutors section end -->
       <!-- testimonial section start -->
       <div class="client_section layout_padding">
          <div class="container">
