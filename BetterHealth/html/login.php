@@ -55,5 +55,7 @@ unset($_SESSION['errors']);
     
     <input type="submit" value="Submit">
   </form>
+  <button type="button" onclick="window.location.href='login.php'">Go to Login</button>
+  <button type="button" onclick="window.location.href='index.php'">Go to home</button>
 </body>
 </html>

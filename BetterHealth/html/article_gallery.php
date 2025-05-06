@@ -23,6 +23,8 @@ $result = $stmt->get_result();
         <div>
             <h2><?php echo htmlspecialchars($row['title']); ?></h2>
             <p><?php echo htmlspecialchars($row['content']); ?></p>
+            <a href="articletemplate.php?id=<?php echo htmlspecialchars($row['id']); ?>">Read More</a>
+
             <p><strong>Published on:</strong> <?php echo htmlspecialchars($row['created_at']); ?></p>
         </div>
     <?php endwhile; ?>

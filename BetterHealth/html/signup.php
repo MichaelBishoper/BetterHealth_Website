@@ -42,8 +42,11 @@ unset($_SESSION['old'], $_SESSION['errors']);
     <label for="email">Email:</label>
     <input name="email" type="email" id="email" required value="<?= htmlspecialchars($email) ?>">
 
-    <input type="submit" value="Submit">
+    <input type="submit" id="submit" value="Submit">
   </form>
+  <button type="button" onclick="window.location.href='login.php'">Go to Login</button>
+  <button type="button" onclick="window.location.href='index.php'">Go to home</button>
+  
 </body>
 </html>
 
