@@ -1,21 +1,30 @@
-<?php
+<?php 
 session_start();
-// article_gallery.php - Public access to the articles
 
-//start db connection
 require_once 'db.php';
 $conn = $GLOBALS['conn'];
 
-$stmt = $conn->prepare("SELECT * FROM articles");  // No status filter anymore
+$stmt = $conn->prepare("SELECT id, username, email, is_admin FROM users");
 $stmt->execute();
 $result = $stmt->get_result();
+
+
+// while ($row = $result->fetch_assoc()) {
+//     echo "<tr>";
+//     echo "<td>{$row['username']}</td>";
+//     echo "<td>{$row['email']}</td>";
+//     echo "<td>" . ($row['is_admin'] ? 'Admin' : 'User') . "</td>";
+//     echo "<td><a href='delete_user.php?id={$row['id']}'>Delete</a></td>";
+//     echo "</tr>";
+// }
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html> 
 <head>
-      <!-- basic -->
-      <meta charset="utf-8">
+    <!-- basic -->
+    <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- mobile metas -->
@@ -41,10 +50,9 @@ $result = $stmt->get_result();
       <link rel="stylesheet" href="css/owl.carousel.min.css">
       <link rel="stylesheet" href="css/owl.theme.default.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-
-    <title>Articles Gallery</title>
+    <title> View Users </title>
     <style>
-        .flex-container {
+    .flex-container {
             display: flex;
             flex-direction: column;
         }
@@ -65,7 +73,9 @@ $result = $stmt->get_result();
             align-items: center;
         }
     </style>
+    
 </head>
+
 <body>
 <header class="site-header">
     <nav class="nav-bar">
@@ -82,21 +92,20 @@ $result = $stmt->get_result();
         <?php endif; ?>
     </nav>
 </header> 
-
-    <h1>Article Gallery</h1>
-    <!-- Loop through Database -->
+<!-- Loop through Database -->
+    <h1> User List </h1>
     <?php while ($row = $result->fetch_assoc()) : ?>
     <div class="flex-container">
         <div class="flex-item">
-            <h2><?php echo htmlspecialchars($row['title']); ?></h2>
-            <p>Author: <?php echo htmlspecialchars($row['author']); ?></p>
-            <p><strong>Published on:</strong> <?php echo htmlspecialchars($row['created_at']); ?></p>
-            <p><a href="article_template.php?id=<?php echo htmlspecialchars($row['id']); ?>"> Read More </a></p>
-            <p><a href="delete_article.php?id=<?= urlencode($row['id']) ?>"
-            onclick="return confirm('Are you sure you want to delete this article?');"> Delete </a></p>
+            <h2><?php echo htmlspecialchars($row['username']); ?></h2>
+            <p>Email: <?php echo htmlspecialchars($row['email']); ?></p>
+            <p><strong>User ID:</strong> <?php echo htmlspecialchars($row['id']); ?></p>
+            <p><strong>Admin Status: </strong> <?php echo htmlspecialchars($row['is_admin']); ?></p>
+            <p><a href="delete_user.php?id=<?= $row['id'] ?>" onclick="return confirm('Delete this user?');">
+            <button>Delete</button>
+            </a></p>
         </div>
     </div>
     <?php endwhile; ?>
-      
 </body>
 </html>

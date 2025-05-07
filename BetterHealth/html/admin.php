@@ -101,13 +101,13 @@
                   <div class="tutor-card">
                   <h4> <a class="useful_text" href="create_article.php"><i class="fa fa-plus" aria-hidden="true"></i> Add Page</a> </h4>
                   </div>
-
-                  <div class="tutor-card">
-                  <h4> <a class="useful_text" href="delete_article.php"><i class="fa fa-minus" aria-hidden="true"></i> Remove Page</a> </h4>
-                  </div>
                   
                   <div class="tutor-card">
-                  <h4> <a class="useful_text" href="article_gallery.php"><i class="fa fa-search" aria-hidden="true"></i> View Articles </a> </h4>
+                  <h4> <a class="useful_text" href="article_gallery.php"><i class="fa fa-book" aria-hidden="true"></i> Manage Articles </a> </h4>
+                  </div>
+
+                  <div class="tutor-card">
+                  <h4> <a class="useful_text" href="user_list.php"><i class="fa fa-user" aria-hidden="true"></i> View Users</a> </h4>
                   </div>
 
                   </section>

@@ -143,9 +143,9 @@ unset($_SESSION['old'], $_SESSION['errors']);
         <input name="username" type="text" id="username" required value="<?= htmlspecialchars($username) ?>">
 
         <label for="password">Enter a Password:</label>
-        <input name="password" type="password" id="password" required minlength="8">
+        <input name="password" type="password" id="password" required minlength="5">
         
-        <small style="color: gray;">Password must be at least 8 characters long.</small>
+        <small style="color: gray;">Password must be at least 5 characters long.</small>
     
 
         <label for="email">Email:</label>

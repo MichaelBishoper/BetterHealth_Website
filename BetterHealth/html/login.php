@@ -120,6 +120,7 @@ unset($_SESSION['errors']);
     background-size: cover;       /* or 'contain', or exact size like '300px 200px' */
     /* background-repeat: no-repeat; avoids tiling
     background-position: center;  centers the image */
+    background-color: black;
   }
 
   @media screen and (max-width: 300px) {

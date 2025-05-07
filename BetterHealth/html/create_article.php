@@ -60,6 +60,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <link rel="stylesheet" href="css/owl.theme.default.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <title>Create Article</title>
+    <style>
+        .flex-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .flex-item {
+            display: flex;
+            align-items: center;
+            /* border: 1px solid #ccc; */
+            flex-direction: column;
+        }
+        body {
+
+        }
+        h1 {
+            text-align: center;
+        }
+        label {
+
+        }
+        button {
+        background-color: #007bff;   
+        color: white;                
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;          
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        }
+        
+    </style>
 </head>
 <body>
 <header class="site-header">
@@ -70,28 +102,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="create_article.php">Add Articles</a>
         <?php endif; ?>
         <?php if ($_SESSION['is_admin'] == 1): ?>
+            <a href="user_list.php">Manage Users</a>
+        <?php endif; ?>
+        <?php if ($_SESSION['is_admin'] == 1): ?>
             <a href="admin.php">Admin</a>
         <?php endif; ?>
     </nav>
-    </header>
+</header> 
     <h1>Create New Article</h1>
+    <div class="flex-container">
+        <div class="flex-item">
+            <form method="POST">
 
-    <form method="POST">
-        <label>Title:</label><br>
-        <input type="text" name="title" required><br><br>
+                <label>Title:</label><br>
+                <input type="text" name="title" required><br><br>
 
-        <label>Author:</label><br>
-        <input type="text" name="author" required><br><br>
+                <label>Author:</label><br>
+                <input type="text" name="author" required><br><br>
 
-        <label>Content:</label><br>
-        <textarea name="content" rows="10" cols="60" required></textarea><br><br>
+                <label>Content:</label><br>
+                <textarea name="content" rows="10" cols="60" required></textarea><br><br>
 
-        <button onclick="return confirmAdd();" type="submit">Create Article</button>
-    </form>
+                <button onclick="return confirmAdd();" type="submit">Create Article</button>
+
+            </form>
+        </div>
+    </div>
 
     <script>
       function confirmAdd() {
-      return confirm("Confirm to add article");
+      return confirm("Confirm to add article.");
       }
     </script>
 </body>
