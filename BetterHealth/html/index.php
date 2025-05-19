@@ -245,7 +245,10 @@
 
                   </section>
                   <div class="seemore_tut seemore_bt">
-                  <a href="<?php echo isset($_SESSION['user_id']) ? 'article_gallery.php' : 'tutors.php'; ?>"> See More </a>
+                  <a href="<?php echo isset($_SESSION['user_id']) ? 'tutors.php' : 'signup.php'; ?>"> See More </a>
+                  </div>
+                  <div class="seemore_tut seemore_bt">
+                  <a href="<?php echo isset($_SESSION['user_id']) ? 'tutorregistration.php' : 'signup.php'; ?>"> Register as a Tutor </a>
                   </div>
 
                </div>

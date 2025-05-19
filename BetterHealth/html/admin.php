@@ -110,6 +110,10 @@
                   <h4> <a class="useful_text" href="user_list.php"><i class="fa fa-user" aria-hidden="true"></i> View Users</a> </h4>
                   </div>
 
+                  <div class="tutor-card">
+                  <h4> <a class="useful_text" href="tutor_list.php"><i class="fa fa-user" aria-hidden="true"></i> View Tutors</a> </h4>
+                  </div>
+
                   </section>
                   <div class="seemore_tut seemore_bt">
                   <a href="index.php"> Back to Home </a>
