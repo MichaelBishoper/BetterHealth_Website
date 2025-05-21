@@ -1,5 +1,6 @@
 <?php
     function signup_validate() {
+        global $conn;
         $username = trim($_POST['username'] ?? '');
         $email = trim($_POST['email'] ?? '');
         $password = trim($_POST['password'] ?? '');
@@ -44,6 +45,8 @@
     
         if ($stmt->execute()) {
             $_SESSION['success'] = "Signup successful! You can now log in.";
+            unset($_SESSION['old']);
+            unset($_SESSION['errors']);
         } else {
             $_SESSION['errors'] = ["Database error: " . $stmt->error];
         }

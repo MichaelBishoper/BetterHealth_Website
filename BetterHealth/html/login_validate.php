@@ -1,5 +1,6 @@
 <?php
 function login_validate() {
+    global $conn;
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
     $errors = [];
@@ -28,6 +29,7 @@ function login_validate() {
     }
 
     $result = $stmt->get_result();
+    //check if login is succesful
     if ($user = $result->fetch_assoc()) {
         if (password_verify($password, $user['password'])) {
             // Debug session

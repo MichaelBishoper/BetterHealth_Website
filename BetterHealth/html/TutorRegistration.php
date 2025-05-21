@@ -1,10 +1,8 @@
-<!-- Barebones -->
-
 <?php
 session_start();
 $old_name = $_SESSION['old']['full_name'] ?? '';
 $old_bio = $_SESSION['old']['bio'] ?? '';
-$error = $_SESSION['error'] ?? '';
+$errors = $_SESSION['errors'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,9 +14,6 @@ $error = $_SESSION['error'] ?? '';
 <body>
     <form action="action.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="action" value="tutor">
-        <?php if ($error): ?>
-        <p style="color:red;"><?= htmlspecialchars($error) ?></p>        
-        <?php endif; ?>        
         
         <!-- with sticky fields -->
         <label for="full_name">Type your full name: </label>
@@ -30,6 +25,15 @@ $error = $_SESSION['error'] ?? '';
         <button type="submit" id="submit" value="Submit">Register</button>  
 
     </form>
+    
+        <?php if (!empty($errors)): ?>
+        <ul style="color: red;">
+        <?php foreach ($errors as $error): ?>
+            <li><?= htmlspecialchars($error) ?></li>
+        <?php endforeach; ?>
+        </ul>
+        <?php unset($_SESSION['errors'], $_SESSION['old']);?>
+    <?php endif; ?>
 </body>
 </html>
 
