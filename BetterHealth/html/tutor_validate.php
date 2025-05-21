@@ -11,7 +11,7 @@ function tutor_validate() {
         $errors[] = "All fields are required!";
     }
 
-    $stmt = $conn->prepare("SELECT id FROM tutors WHERE full_name = ? AND is_tutor = 1");
+    $stmt = $conn->prepare("SELECT id FROM tutors WHERE full_name = ?");
     $stmt->bind_param("s", $full_name);
     $stmt->execute();
     $stmt->store_result();
