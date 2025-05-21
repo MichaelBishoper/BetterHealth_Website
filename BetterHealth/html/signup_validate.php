@@ -1,8 +1,5 @@
 <?php
     function signup_validate() {
-        require_once 'db.php';
-        $conn = $GLOBALS['conn'];
-    
         $username = trim($_POST['username'] ?? '');
         $email = trim($_POST['email'] ?? '');
         $password = trim($_POST['password'] ?? '');
@@ -52,8 +49,6 @@
         }
     
         $stmt->close();
-        $conn->close();
-    
         header("Location: login.php");
         exit;
     }

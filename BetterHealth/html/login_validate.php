@@ -1,9 +1,5 @@
 <?php
-session_start();
-require_once 'db.php';
-
 function login_validate() {
-    $conn = $GLOBALS['conn'];
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
     $errors = [];
@@ -65,7 +61,6 @@ function login_validate() {
     
 
     $stmt->close();
-    $conn->close();
 
     $_SESSION['errors'] = $errors;
     header("Location: login.php");
