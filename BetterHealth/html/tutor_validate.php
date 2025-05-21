@@ -1,6 +1,5 @@
 <?php
 function tutor_validate() {
-    // Save input data so form fields can be pre-filled after redirect
     $_SESSION['old'] = $_POST;
 
     $full_name = trim($_POST['full_name'] ?? '');
@@ -13,11 +12,25 @@ function tutor_validate() {
         exit;
     }
 
-    // If valid, save to DB or do the next step
-    // ...
-    // Clear old inputs after successful submission
-    unset($_SESSION['old'], $_SESSION['error']);
+    if (!file_exists('uploads')) {
+        mkdir('uploads', 0777, true);
+    }
 
-    // Redirect or show success
+    $filename = uniqid() . "_" . basename($file['name']);
+    $targetPath = "uploads/" . $filename;
+
+    if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+        $_SESSION['error'] = "Upload failed!";
+        header("Location: TutorRegistration.php");
+        exit;
+    }
+
+    global $conn;
+    $stmt = $conn->prepare("INSERT INTO tutors (full_name, bio, pfp_url) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $full_name, $bio, $targetPath);
+    $stmt->execute();
+    $stmt->close();
+
+    unset($_SESSION['old'], $_SESSION['error']);
     echo "Success!";
 }
