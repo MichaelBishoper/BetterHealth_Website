@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2025 at 03:30 PM
+-- Generation Time: May 21, 2025 at 07:58 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -58,6 +58,28 @@ CREATE TABLE `logins` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tutors`
+--
+
+CREATE TABLE `tutors` (
+  `id` int(11) NOT NULL,
+  `full_name` varchar(100) NOT NULL,
+  `bio` text NOT NULL,
+  `pfp_url` varchar(255) NOT NULL,
+  `status` enum('pending','accepted','rejected') DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tutors`
+--
+
+INSERT INTO `tutors` (`id`, `full_name`, `bio`, `pfp_url`, `status`, `created_at`) VALUES
+(1, 'Wesley', 'Because im a boolean and im True.', 'uploads/682d6a773bb67_Oret2 Tree Categories.jpg', 'pending', '2025-05-21 05:53:59');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -79,7 +101,8 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_admin`, `is_tuto
 (12, 'booleanW', 'devicantik@gmail.com', '$2y$10$IUBdwTqukR31.AM1WcEw3OekJ4U5KLCDzCYMVVQJTQ3zFqvEb9om.', 1, 0, ''),
 (13, 'Pantek88', 'p@gmail.com', '$2y$10$/cXDXNURb/Kl4IiijVlSV.sEFYbant1OUXuk/Dt7Ab47Fli3gG6vK', 0, 0, ''),
 (100, 'Admin', 'Admin@email.com', 'Admin123', 1, 0, ''),
-(201, 'testadmin', 'admin@example.com', '$2y$10$w7llWFEzaawsdE5zvr4iM.FTVrLHjxjUggBhbu7ejpzz48RbmxZEW', 1, 0, '');
+(201, 'testadmin', 'admin@example.com', '$2y$10$w7llWFEzaawsdE5zvr4iM.FTVrLHjxjUggBhbu7ejpzz48RbmxZEW', 1, 0, ''),
+(202, 'Wesley', '', NULL, 0, 0, 'uploads/Oret2 Tree Categories.jpg');
 
 --
 -- Indexes for dumped tables
@@ -95,6 +118,12 @@ ALTER TABLE `articles`
 -- Indexes for table `logins`
 --
 ALTER TABLE `logins`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tutors`
+--
+ALTER TABLE `tutors`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -121,10 +150,16 @@ ALTER TABLE `logins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `tutors`
+--
+ALTER TABLE `tutors`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
