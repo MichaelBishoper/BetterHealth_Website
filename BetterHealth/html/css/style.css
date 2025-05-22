@@ -527,8 +527,9 @@ img.image {
 }
 
 .seemore_bt a:hover {
-    background-color: #f76d37;
+    background-color: #000000;
     color: #ffffff;
+    
 }
 
 /* SEE MORE FOR TUTORS */
@@ -551,8 +552,9 @@ img.image {
 }
 
 .seemore_tut a:hover {
-    background-color: #ffffff;
-    color: #ffffff;
+    background-color: #470e0e;
+    color: #ff1212;
+
 }
 
 a:hover {
@@ -1106,3 +1108,19 @@ a:hover {
     margin: 0 auto;
   }
 
+  .btn-div-2 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .btn-div-2-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+
+ .tutor-btn {
+    color: #10e2bd;
+    font-size: small;
+ }

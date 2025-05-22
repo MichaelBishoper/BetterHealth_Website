@@ -48,16 +48,16 @@
                            <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="#about_us">About Us</a>
+                           <a class="nav-link" href="about_us.php">About Us</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="#gallery">Guides</a>
+                           <a class="nav-link" href="guides.php">Guides</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="#service">Tutors</a>
+                           <a class="nav-link" href="tutors.php">Tutors</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="#contact">Contact Us</a>
+                           <a class="nav-link" href="contact_us.php">Contact Us</a>
                         </li>
 
                         <!-- PHP -->

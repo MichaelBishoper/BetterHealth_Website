@@ -14,7 +14,7 @@ function login_validate() {
         exit;
     }
 
-    $stmt = $conn->prepare("SELECT id, username, password, is_admin FROM users WHERE username = ?");
+    $stmt = $conn->prepare("SELECT id, username, password, is_admin, is_tutor FROM users WHERE username = ?");
     if (!$stmt) {
         $_SESSION['errors'] = ["Database error: " . $conn->error];
         header("Location: login.php");
@@ -35,10 +35,11 @@ function login_validate() {
             // Debug session
             error_log("Login successful for: ".$user['username']);
             
-            // Set all session variables
+            // SETS ALL SESSION VARIABLES
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['is_admin'] = $user['is_admin'];
+            $_SESSION['is_tutor'] = $user['is_tutor'];
             
             // REDIRECTION BASED ON ADMIN OR NOT
             if (isset($_SESSION['user_id'])) {

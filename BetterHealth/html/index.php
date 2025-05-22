@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); 
+include 'db.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,6 +33,31 @@
       <link rel="stylesheet" href="css/owl.carousel.min.css">
       <link rel="stylesheet" href="css/owl.theme.default.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <style>
+               .tutor-btn {
+         color: #10e2bd;
+         font-size: 0.5rem;
+      }
+            .seemore_bt {
+         width: 170px;
+         margin: 0 auto;
+         text-align: center;
+         display: flex;
+      }
+
+      .seemore_bt a {
+         width: 100%;
+         text-align: center;
+         font-size: 16px;
+         color: #ffffff;
+         background-color: #252525;
+         padding: 10px 0px;
+         margin-top: 40px;
+      }
+
+     
+      
+      </style>
    </head>
    <body>
       <!--header section start -->
@@ -50,10 +77,10 @@
                            <a class="nav-link" href="#about_us">About Us</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="#gallery">Guides</a>
+                           <a class="nav-link" href="guides.php">Guides</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="#service">Tutors</a>
+                           <a class="nav-link" href="tutors.php">Tutors</a>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="#contact">Contact Us</a>
@@ -67,7 +94,7 @@
                            <a class="nav-link" href="logout.php" onclick="return confirmLogout();">Logout</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="<?php echo ($_SESSION['is_admin'] == 1) ? 'admin.php' : 'account.php'; ?>">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</a>
+                           <a class="nav-link" href="<?php echo ($_SESSION['is_admin'] == 1) ? 'admin.php' : 'dashboard.php'; ?>">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</a>
                         </li>
                         <?php else: ?>
                         <!-- Show only when NOT logged in -->
@@ -118,18 +145,6 @@
                         </div>
                      </div>
                   </div>
-                  <div class="carousel-item">
-                     <div class="row">
-                        <div class="col-sm-12">
-                           <div class="banner_taital">
-                              <h1 class="outstanding_text">BetterRun </h1>
-                              <h1 class="coffee_text">I'll Beat Your Shit</h1>
-                              <p class="there_text">This fitness website consists of information curated from the highest echelons of internet health and fitness knowledge. It is designed to help you and guide you throughout your fitness journey, ensuring you get the most benefits from your diets, workouts, etc. This website can act as a guideline to overall health and wellbeing, keeping you healthy, whilst doing most of the scheduling and planning.</p>
-                              <div class="learnmore_bt"><a href="#">Learn More</a></div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
                </div>
                <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
                <i class="fa fa-angle-left"></i>
@@ -160,7 +175,7 @@
          </div>
       </div>
       <!-- about section end -->
-      <!-- gallery section start -->
+      <!-- GUIDES section start -->
       <div class="gallery_section layout_padding" id="gallery">
          <div class="container">
             <div class="row">
@@ -171,40 +186,46 @@
             <div class="">
                <div class="gallery_section_2">
                   <div class="row">
-                     <div class="col-md-4">
-                        <div class="container_main">
-                           <p class="gallery-item"> How to seduce your male friends </p>
-                           <img src="images/gallery_img1.jpg" alt="Avatar" class="image">
-                           <div class="overlay">
-                              <div class="text"><a href="article_1.html"><i class="fa fa-search" aria-hidden="true"></i></a></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <div class="container_main">
-                           <p class="gallery-item"> How to not cry after cutting onions </p>
-                           <img src="images/gallery_img2.jpg" alt="Avatar" class="image">
-                           <div class="overlay">
-                              <div class="text"><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <div class="container_main">
-                           <p class="gallery-item"> Why vegies are overrated </p>
-                           <img src="images/gallery_img3.jpg" alt="Avatar" class="image">
-                           <div class="overlay">
-                              <div class="text"><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></div>
-                           </div>
-                        </div>
-                     </div>
+    <?php
+    $sql = "SELECT * FROM articles ORDER BY created_at DESC";
+    $result = $conn->query($sql);
+    $counter = 0;
+
+    if ($result && $result->num_rows > 0):
+        while ($row = $result->fetch_assoc()):
+         if (++$counter > 3) break;
+      
+    ?>
+    <div class="col-md-4">
+        <div class="container_main">
+            <p class="gallery-item">
+                <?= htmlspecialchars($row['title']) ?><br>
+                <small><em>by <?= htmlspecialchars($row['author']) ?></em></small>
+            </p>
+            <img src="images/gallery_img<?= rand(1,3) ?>.jpg" alt="Article Image" class="image">
+            <div class="overlay">
+               <div class="text">
+                  <?php if (isset($_SESSION['user_id'])): ?>
+                     <a href="article_template.php?id=<?= htmlspecialchars($row['id']) ?>">
+                           <i class="fa fa-search" aria-hidden="true"></i>
+                     </a>
+                  <?php else: ?>
+                     <span style="cursor: not-allowed;" title="please login bitch">
+                           <i class="fa fa-lock" aria-hidden="true"></i>
+                     </span>
+                  <?php endif; ?>
+               </div>
+            </div>
+        </div>
+    </div>
+    <?php
+        endwhile;
+        else:
+            echo "<p>No articles found.</p>";
+        endif;
+    ?>
                   </div>
                </div>
-
-               <!-- End of div: Copy here-->
-               
-               
-
             </div>
 
             <!-- JANGAN DIHAPUS: PHP logic for see more button -->
@@ -214,7 +235,7 @@
 
          </div>
       </div>
-      <!-- gallery section end -->
+      <!-- GUIDES section end -->
       <!-- TUTORS section start -->
       <div class="services_section layout_padding" id="service">
          <div class="container">
@@ -244,12 +265,22 @@
                   </div>
 
                   </section>
-                  <div class="seemore_tut seemore_bt">
-                  <a href="<?php echo isset($_SESSION['user_id']) ? 'tutors.php' : 'signup.php'; ?>"> See More </a>
-                  </div>
-                  <div class="seemore_tut seemore_bt">
-                  <a href="<?php echo isset($_SESSION['user_id']) ? 'tutorregistration.php' : 'signup.php'; ?>"> Register as a Tutor </a>
-                  </div>
+                     <?php if (isset($_SESSION['user_id'])): ?>
+                        <div class="seemore_bt tutor_btn">
+                           <a href="tutors.php">See More</a>
+                        </div>
+
+                        <?php if (isset($_SESSION['is_tutor']) && $_SESSION['is_tutor'] == 0): ?>
+                           <div class="seemore_bt tutor_btn">
+                                 <a href="tutorregistration.php">Register as a Tutor</a>
+                           </div>
+                        <?php endif; ?>
+                     <?php else: ?>
+                        <!-- Optional: show nothing, or show link to sign up -->
+                        <!-- <div class="seemore_bt tutor_btn">
+                           <a href="signup.php">Sign up to see more</a>
+                        </div> -->
+                     <?php endif; ?>
 
                </div>
             </div>
@@ -378,11 +409,11 @@
                         <li><a href="#">Home</a></li>
                         <li><a href="#about_us">About Us</a></li>
                         <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#service">Services</a></li>
+                        <li><a href="#service">Tutors</a></li>
                         <li><a href="#contact">Contact Us</a></li>
 
                         <?php if (isset($_SESSION['user_id'])): ?> <!--Show when logged in -->
-                        <li><a class="footer_menu" href="account.php"> Account</a> </li>
+                        <li><a class="footer_menu" href=<?php echo ($_SESSION['is_admin'] == 1) ? 'admin.php' : 'dashboard.php'; ?>> Account</a> </li>
                         <li><a class="footer_menu" href="logout.php" onclick="return confirmLogout();"> Logout</a> </li>
                         <?php else: ?> <!--Show when NOT logged in -->
                         <li class="nav-item">

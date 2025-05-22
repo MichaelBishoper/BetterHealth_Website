@@ -57,23 +57,20 @@ if (isset($_GET['id'])) {
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
              <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
+                   <a class="nav-link" href="guides.php">Back</a>
+                </li>
+                <li class="nav-item">
                    <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                   <a class="nav-link" href="index.php">About Us</a>
+                   <a class="nav-link" href="about_us.php">About Us</a>
                 </li>
                 <li class="nav-item">
-                   <a class="nav-link" href="index.php">Gallery</a>
+                   <a class="nav-link" href="tutors.php">Tutors</a>
                 </li>
                 <li class="nav-item">
-                   <a class="nav-link" href="index.php">Services</a>
-                </li>
-                <li class="nav-item">
-                   <a class="nav-link" href="index.php">Contact Us</a>
-                </li>
-                <li class="nav-item">
-                   <a class="nav-link" href="login.php">Login</a>
+                   <a class="nav-link" href="contact_us.php">Contact Us</a>
                 </li>
                 <?php if ($_SESSION['is_admin'] == 1): ?>
                    <a class="nav-link" href="admin.php">Admin</a>

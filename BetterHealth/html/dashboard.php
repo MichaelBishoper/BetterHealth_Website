@@ -1,17 +1,30 @@
-<?php
-session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit;
-}
+<!-- For admins to do admin things -->
+<?php session_start();
+if(!isset($_SESSION['username'])){
+    header("Location: index.php");
+} 
+include 'db.php';
+
+$quotes = [
+    "Believe you can and you're halfway there.",
+    "Every accomplishment starts with the decision to try.",
+    "You miss 100% of the shots you don't take.",
+    "The best time to start was yesterday. The next best time is now.",
+    "It does not matter how slowly you go as long as you do not stop.",
+    "We can all fight against loneliness by engaging in random acts of kindness."
+];
+
+$random_quote = $quotes[array_rand($quotes)];
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-     <!-- basic -->
-     <meta charset="utf-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- mobile metas -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,104 +50,200 @@ if (!isset($_SESSION['username'])) {
       <link rel="stylesheet" href="css/owl.carousel.min.css">
       <link rel="stylesheet" href="css/owl.theme.default.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
-
-
       <style>
-        body {
-            background-color: #111;
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background-color: #1f1f1f;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            color: #00e676;
-            margin: 0;
-        }
-
-        .nav-links a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .dashboard-container {
-            padding: 60px;
+        .services_taital {
+            width: 100%;
+            font-size: 40px;
+            color: #ffffff;
+            font-weight: bold;
             text-align: center;
         }
 
-        .dashboard-container h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
+        .services_text {
+            width: 100%;
+            font-size: 16px;
+            color: #ffffff;
+            margin: 0px;
+            text-align: center;
         }
+        
+       
+      </style>
+   </head>
+   <body>
+      <!--header section start -->
+      <div class="header_section">
+         <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+               <div class="logo"><a href="index.php"><img src="images/newlogo.png"></a></div>
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+               </button>
+               <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                           <a class="nav-link" href="index.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="#about_us">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="g">Guides</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="tutors.php">Tutors</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="#contact">Contact Us</a>
+                        </li>
 
-        .card-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
+                        <!-- PHP -->
 
-        .card {
-            background-color: #222;
-            padding: 30px 50px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            transition: transform 0.2s ease;
-        }
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                        <!-- Show only when logged in -->
+                        <li class="nav-item">
+                           <a class="nav-link" href="logout.php" onclick="return confirmLogout();">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="<?php echo ($_SESSION['is_admin'] == 1) ? 'admin.php' : 'dashboard.php'; ?>">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</a>
+                        </li>
+                        <?php else: ?>
+                        <!-- Show only when NOT logged in -->
+                        <li class="nav-item">
+                           <a class="nav-link" href="signup.php">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="login.php">Login</a>
+                        </li>
+                        <?php endif; ?>
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+                        <li class="nav-item">
+                           <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                        </li>
+                        
+                  </ul>
+               </div>
+            </nav>
+         </div>
+      </div>
+      <!--header section end -->
+      <!-- TUTORS section start -->
+      <div class="services_section layout_padding" id="service">
+         <div class="container">
+            <div class="row">
+               
+                  <h1 class="services_taital">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></h1>
+                  <p class="services_text"><?php echo htmlspecialchars($quotes[array_rand($quotes)]); ?></p>
+            </div>
+         </div>
+       </div>
+      <!-- Tutors section end -->
+      <!-- footer section start -->
+      <div class="footer_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-3 col-sm-6">
+                  <h3 class="useful_text">About</h3>
+                  <p class="footer_text">We provide high quality nutrition blogs that helps readers learn more about nutrition and lets them choose an optimal diet.</p>
+               </div>
+               <div class="col-lg-3 col-sm-6">
+                  <h3 class="useful_text">Menu</h3>
+                  <div class="footer_menu">
+                     <ul>
+                        <!-- Show regardless -->
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#about_us">About Us</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#service">Services</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
 
-        .card a {
-            text-decoration: none;
-            color: #00e676;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-    </style>
+                        <?php if (isset($_SESSION['user_id'])): ?> <!--Show when logged in -->
+                        <li><a class="footer_menu" href="account.php"> Account</a> </li>
+                        <li><a class="footer_menu" href="logout.php" onclick="return confirmLogout();"> Logout</a> </li>
+                        <?php else: ?> <!--Show when NOT logged in -->
+                        <li class="nav-item">
+                        <a href="signup.php">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                        <a href="login.php">Login</a>
+                        </li>
+                        <?php endif; ?>
+                     </ul>
+                  </div>
+               </div>
 
-
-</head>
-<body>
-    <header>
-    <h1>BetterHealth</h1>
-    <div class="nav-links">
-        <a href="index.php">Home</a>
-        <a href="logout.php" onclick="return confirmLogout();">Logout</a>
-    </div>
-</header>
-
-<div class="dashboard-container">
-    <h2>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h2>
-    <div class="card-grid">
-        <div class="card">
-            <a href="index.php">Return Home</a>
-        </div>
-        <div class="card">
-            <a href="tutors.php">Book a Tutor!</a>
-        </div>
-        <div class="card">
-            <a href="guides.php">Read our Guides!</a>
-        </div>
-    </div>
-</div>
+               <!-- Fix spacing issue (Same Solution as above--> 
+               <div class="col-lg-3 col-sm-6">
+                  <div class="footer_menu"> 
+                  <h1 class="useful_text">Useful Links</h1>
+                  <li class="nav-item">
+                  <a class="nav-link" href="https://www.youtube.com/@Talon_Fitness">Talon Fitness</a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="https://www.youtube.com/@Talon_Fitness">Muscle Mommy</a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="https://www.youtube.com/@Talon_Fitness">Muscle Mommy</a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="https://www.youtube.com/@Talon_Fitness">Muscle Mommy</a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="https://www.youtube.com/@Talon_Fitness">Muscle Mommy</a>
+                  </li>
+                  </div>
+                  
+                  
+                  <!-- <p class="dummy_text nav-item"><a href="">Talon_Fitness</a></p>
+                  <p class="nav-item"><a href="https://www.youtube.com/@Talon_Fitness">Muscle Mommy</a></p> -->
+               </div>
+               <div class="col-lg-3 col-sm-6">
+                  <h1 class="useful_text">Contact Us</h1>
+                  <div class="location_text">
+                     <ul>
+                        <li>
+                           <a href="https://youtu.be/L_ByGeT4Qzk">
+                           <i class="fa fa-map-marker" aria-hidden="true"></i><span class="padding_left_10">Address : The Prominence Office Tower, Jl. Jalur Sutera Bar. No.15, RT.003/RW.006, Panunggangan Tim., Kec. Pinang, Kota Tangerang, Banten 15143</span>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="https://youtu.be/L_ByGeT4Qzk">
+                           <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">Call : +62 810 0928 1882</span>
+                           </a>
+                        </li>
+                        <li>
+                           <a href="https://youtu.be/L_ByGeT4Qzk">
+                           <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">Email : betterhelp@gmail.com</span>
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- footer section end -->
+      <!-- copyright section start -->
+      <div class="copyright_section">
+         <div class="container">
+            <p class="copyright_text">2025 All Rights Reserved.</p>
+         </div>
+      </div>
+      <!-- copyright section end -->
+      <!-- Javascript files-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <script src="js/plugin.js"></script>
+      <!-- sidebar -->
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>     
       <!--Logout confirmation -->
       <script>
       function confirmLogout() {
       return confirm("Are you sure you want to log out?");
       }
-      </script>
-</body>
+      </script>   
+   </body>
 </html>
