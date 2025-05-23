@@ -11,7 +11,7 @@ $result = $conn->query("SELECT * FROM tutors");
         <?php while ($row = $result->fetch_assoc()): ?>
             <li>
                 <img src="<?= htmlspecialchars($row['pfp_url']) ?>" alt="PFP" width="50">
-                <strong><?= htmlspecialchars($row['full_name']) ?></strong> - <?= htmlspecialchars($row['status']) ?><br>
+                <strong><?= htmlspecialchars($row['tutor_name']) ?></strong> - <?= htmlspecialchars($row['status']) ?><br>
                 <em><?= htmlspecialchars($row['bio']) ?></em>
             </li>
         <?php endwhile; ?>

@@ -3,16 +3,16 @@ function tutor_validate() {
     global $conn;
     $errors = [];
 
-    $full_name = trim($_POST['full_name'] ?? '');
+    $tutor_name = trim($_POST['tutor_name'] ?? '');
     $bio = trim($_POST['bio'] ?? '');
     $file = $_FILES['upload_file'] ?? null;
 
-    if (empty($full_name) || empty($bio) || !$file || $file['error'] !== 0) {
+    if (empty($tutor_name) || empty($bio) || !$file || $file['error'] !== 0) {
         $errors[] = "All fields are required!";
     }
 
-    $stmt = $conn->prepare("SELECT id FROM tutors WHERE full_name = ?");
-    $stmt->bind_param("s", $full_name);
+    $stmt = $conn->prepare("SELECT id FROM tutors WHERE tutor_name = ?");
+    $stmt->bind_param("s", $tutor_name);
     $stmt->execute();
     $stmt->store_result();
 
@@ -40,8 +40,8 @@ function tutor_validate() {
     exit;
     }
     // insert into tutors table and await admin approval
-    $stmt = $conn->prepare("INSERT INTO tutors (full_name, bio, pfp_url) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $full_name, $bio, $targetPath);
+    $stmt = $conn->prepare("INSERT INTO tutors (tutor_name, bio, pfp_url) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $tutor_name, $bio, $targetPath);
     $stmt->execute();
     $stmt->close();
 

@@ -102,14 +102,14 @@ include 'db.php';
                   <p class="services_text">Our tutors can help you streamline your fitness journey and get you from zero to hero in no time. </p>
                   <section id="tutors" class="tutor-section">
                   <?php
-                   $sql = "SELECT full_name, bio, pfp_url FROM tutors WHERE status = 'accepted'";
+                   $sql = "SELECT tutor_name, bio, pfp_url FROM tutors WHERE status = 'accepted'";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                                 echo '<div class="tutor-card">';
-                                echo '<img src="' . htmlspecialchars($row['pfp_url']) . '" alt="' . htmlspecialchars($row['full_name']) . '" style="width: 100%; max-width: 250px; height: auto;">';
-                                echo '<h3 class="services_taital">' . htmlspecialchars($row['full_name']) . '</h3>';
+                                echo '<img src="' . htmlspecialchars($row['pfp_url']) . '" alt="' . htmlspecialchars($row['tutor_name']) . '" style="width: 100%; max-width: 250px; height: auto;">';
+                                echo '<h3 class="services_taital">' . htmlspecialchars($row['tutor_name']) . '</h3>';
                                 echo '<p>' . htmlspecialchars($row['bio']) . '</p>';
                                 echo '</div>';
                             }

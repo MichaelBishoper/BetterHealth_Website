@@ -6,7 +6,7 @@ if(!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$old_name = $_SESSION['old']['full_name'] ?? '';
+$old_name = $_SESSION['old']['tutor_name'] ?? '';
 $old_bio = $_SESSION['old']['bio'] ?? '';
 $errors = $_SESSION['errors'] ?? '';
 ?>
@@ -169,8 +169,8 @@ $errors = $_SESSION['errors'] ?? '';
             <input type="hidden" name="action" value="tutor">
             
             <!-- with sticky fields -->
-            <label for="full_name">Type your full name: </label>
-            <input type="text" id="full_name" name="full_name" value="<?= htmlspecialchars($old_name) ?>"><br>
+            <label for="tutor_name">Type your full name: </label>
+            <input type="text" id="tutor_name" name="tutor_name" value="<?= htmlspecialchars($old_name) ?>"><br>
             <label for="bio">Tell us a bit about yourself, why do you want to be a tutor? </label><br>
             <textarea id="bio" name="bio" rows="4" cols="55"><?= htmlspecialchars($old_bio) ?></textarea><br>
 
