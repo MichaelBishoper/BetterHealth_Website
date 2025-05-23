@@ -176,7 +176,7 @@ $errors = $_SESSION['errors'] ?? '';
 
             <div class="file-wrapper">
                 <input type="file" id="upload_file" name="upload_file"><br>
-                <div class="custom-file-btn"> Upload Profile Picture </div>
+                <div class="custom-file-btn"> Upload ID </div>
             </div>
 
             <button type="submit" id="submit" value="Submit">Register as a Tutor</button>  

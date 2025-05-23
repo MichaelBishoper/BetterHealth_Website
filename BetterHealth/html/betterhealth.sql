@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2025 at 07:58 AM
+-- Generation Time: May 23, 2025 at 07:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,16 +32,19 @@ CREATE TABLE `articles` (
   `title` varchar(255) NOT NULL,
   `author` varchar(100) NOT NULL,
   `content` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `articles`
 --
 
-INSERT INTO `articles` (`id`, `title`, `author`, `content`, `created_at`) VALUES
-(10, 'Primus', 'Arthur', 'jjjjjjjjjjjjjjj', '2025-05-07 02:04:40'),
-(11, 'The Time and Place', 'Russell Dean', '\"It is better to keep your mouth closed and let people think you are a fool than to open it and remove all doubt.\"', '2025-05-07 04:19:54');
+INSERT INTO `articles` (`id`, `title`, `author`, `content`, `created_at`, `user_id`) VALUES
+(10, 'Primus', 'Arthur', 'jjjjjjjjjjjjjjj', '2025-05-07 02:04:40', NULL),
+(11, 'The Time and Place', 'Russell Dean', '\"It is better to keep your mouth closed and let people think you are a fool than to open it and remove all doubt.\"', '2025-05-07 04:19:54', NULL),
+(12, 'Swiss German University', 'Test Article 5', 'Are Onions Good For Bodybuilding?\r\nIf you’re planning to add bodybuilding to your life, onions might not be the first thing you think about when you think about your bodybuilding diet but they are packed full of nutrients and can be highly beneficial. Vitamins that onions have in them include Vitamin B6 and Vitamin C (like in orange juice), as well as minerals like potassium.\r\n\r\nBut, as you might expect, it is their flavonoids and antioxidants (especially quercetin) that make them really powerful.\r\n\r\nIt is well known that quercetin is anti-inflammatory and an immune enhancer. In other words, for bodybuilders, it means less inflammation in the muscles and a quicker recovery. The anti-oxidative effects also help combat the free radicals created during intense workouts that otherwise would slow down recovery and growth of muscles.', '2025-05-22 13:49:27', NULL),
+(13, 'Swiss German University', 'Arthur', 'Are Onions Good For Bodybuilding?\r\nIf you’re planning to add bodybuilding to your life, onions might not be the first thing you think about when you think about your bodybuilding diet but they are packed full of nutrients and can be highly beneficial. Vitamins that onions have in them include Vitamin B6 and Vitamin C (like in orange juice), as well as minerals like potassium.\r\n\r\nBut, as you might expect, it is their flavonoids and antioxidants (especially quercetin) that make them really powerful.\r\n\r\nIt is well known that quercetin is anti-inflammatory and an immune enhancer. In other words, for bodybuilders, it means less inflammation in the muscles and a quicker recovery. The anti oxidative effects also help combat the free radicals created during intense workouts that otherwise would slow down recovery and growth of muscles.', '2025-05-22 13:50:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -63,7 +66,7 @@ CREATE TABLE `logins` (
 
 CREATE TABLE `tutors` (
   `id` int(11) NOT NULL,
-  `full_name` varchar(100) NOT NULL,
+  `tutor_name` varchar(100) NOT NULL,
   `bio` text NOT NULL,
   `pfp_url` varchar(255) NOT NULL,
   `status` enum('pending','accepted','rejected') DEFAULT 'pending',
@@ -74,8 +77,12 @@ CREATE TABLE `tutors` (
 -- Dumping data for table `tutors`
 --
 
-INSERT INTO `tutors` (`id`, `full_name`, `bio`, `pfp_url`, `status`, `created_at`) VALUES
-(1, 'Wesley', 'Because im a boolean and im True.', 'uploads/682d6a773bb67_Oret2 Tree Categories.jpg', 'pending', '2025-05-21 05:53:59');
+INSERT INTO `tutors` (`id`, `tutor_name`, `bio`, `pfp_url`, `status`, `created_at`) VALUES
+(0, 'Chung', 'lalalala', 'uploads/682df1fa977ea_BetterHealth_Banner.png', 'pending', '2025-05-21 15:32:10'),
+(0, '[TestTutor]', '[This is my bio]', '[\"C:xampphtdocsTempBetterBetterHealthhtmlimagesanner-bg.png\"]', '', '2025-05-22 02:31:15'),
+(0, 'tutor123', 'aoiefoweihfwef', 'uploads/682e8cd7d0e29_fruit.jpg', 'pending', '2025-05-22 02:32:55'),
+(0, 'Orlean Wesley', 'I am Orlean Wesley', 'uploads/682ff5a89eb11_banner-bg.png', 'pending', '2025-05-23 04:12:24'),
+(0, 'Orlean Wesleys', 'I am Orlean Wesley', 'uploads/682ff70b42cd5_BetterHealth_Banner.png', 'pending', '2025-05-23 04:18:19');
 
 -- --------------------------------------------------------
 
@@ -102,7 +109,12 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_admin`, `is_tuto
 (13, 'Pantek88', 'p@gmail.com', '$2y$10$/cXDXNURb/Kl4IiijVlSV.sEFYbant1OUXuk/Dt7Ab47Fli3gG6vK', 0, 0, ''),
 (100, 'Admin', 'Admin@email.com', 'Admin123', 1, 0, ''),
 (201, 'testadmin', 'admin@example.com', '$2y$10$w7llWFEzaawsdE5zvr4iM.FTVrLHjxjUggBhbu7ejpzz48RbmxZEW', 1, 0, ''),
-(202, 'Wesley', '', NULL, 0, 0, 'uploads/Oret2 Tree Categories.jpg');
+(202, 'memek221', 'kk@email.c', '$2y$10$4O7cL4k2Yxd5SiI/9WwTNubFvP.J1hpy4gScprh9JsiXKF1n2UEli', 0, 0, ''),
+(203, 'hahahaha123', 'aa@gmail.com', '$2y$10$RBOdasOofvCTHD4xeFmmLekWoXsv23goan1j/18oUXzFit2eKy8l6', 0, 0, ''),
+(204, 'jethroshutup', 'jethro@gmail.com', '$2y$10$o9gZww0pceVCWIK31FGfheGwst0SvL7JFp0hXNCR5z5PBzSfLHwtG', 0, 0, ''),
+(205, 'hikmahcorp', 'himah@corpo.com', '$2y$10$yj6uaBnoY/rxYe5cS4LXHOkxqnszgPvm3ZwxlffQUUiyGEHIV3Uvu', 0, 0, ''),
+(206, 'james_g', 'james@gmail.com', '$2y$10$fUd.kT1I0olXWYVbviELU.Nq.2ebKfz8n/cv2jLaRDuWOW0xXUtCS', 0, 0, ''),
+(207, 'kontol111', 'kontol111@gmail.com', '$2y$10$10nlfKoeDRleDLGP6WR.FeZkOx4zqOaADCVWujtZ7uhKP1nxbdgem', 0, 0, '');
 
 --
 -- Indexes for dumped tables
@@ -112,18 +124,13 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_admin`, `is_tuto
 -- Indexes for table `articles`
 --
 ALTER TABLE `articles`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_articles_user` (`user_id`);
 
 --
 -- Indexes for table `logins`
 --
 ALTER TABLE `logins`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tutors`
---
-ALTER TABLE `tutors`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -141,7 +148,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `logins`
@@ -150,16 +157,20 @@ ALTER TABLE `logins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tutors`
---
-ALTER TABLE `tutors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `articles`
+--
+ALTER TABLE `articles`
+  ADD CONSTRAINT `fk_articles_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

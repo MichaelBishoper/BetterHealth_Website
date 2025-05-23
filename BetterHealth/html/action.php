@@ -30,6 +30,7 @@ switch ($action) {
     case 'reject':
         reject_logic();
         break;
+        
     default:
         $_SESSION['errors'] = ["No valid action provided."];
         header("Location: signup.php");

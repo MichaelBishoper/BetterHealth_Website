@@ -46,5 +46,5 @@ function tutor_validate() {
     $stmt->close();
 
     unset($_SESSION['old'], $_SESSION['error']);
-    echo "Success!";
+    header("Location: WaitingList.php");
 }
