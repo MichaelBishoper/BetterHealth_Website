@@ -210,7 +210,7 @@ include 'db.php';
                            <i class="fa fa-search" aria-hidden="true"></i>
                      </a>
                   <?php else: ?>
-                     <span style="cursor: not-allowed;" title="please login bitch">
+                     <span style="cursor: not-allowed;" title="Login Required">
                            <i class="fa fa-lock" aria-hidden="true"></i>
                      </span>
                   <?php endif; ?>
@@ -230,7 +230,7 @@ include 'db.php';
 
             <!-- JANGAN DIHAPUS: PHP logic for see more button -->
             <div class="seemore_bt">
-            <a href="<?php echo isset($_SESSION['user_id']) ? 'article_gallery.php' : 'signup.php'; ?>"> See More </a>
+            <a href="<?php echo isset($_SESSION['user_id']) ? 'guides.php' : 'signup.php'; ?>"> See More </a>
             </div>
 
          </div>
@@ -342,8 +342,8 @@ include 'db.php';
                    <div class="row">
                       <div class="col-md-12">
                          <div class="testimonial_section_2">
-                            <h4 class="client_name_text">Deddy Mulyadi<span class="quick_icon"><img src="images/quick-icon.png"></span></h4>
-                            <p class="customer_text">I will send naughty students who don't use BetterHealth into some concentration camp in El Salvador!!!!!</p>
+                            <h4 class="client_name_text">John Doe<span class="quick_icon"><img src="images/quick-icon.png"></span></h4>
+                            <p class="customer_text">The ability to speak fast and loud does not make one intelligent.</p>
                          </div>
                       </div>
                    </div>
@@ -407,10 +407,10 @@ include 'db.php';
                      <ul>
                         <!-- Show regardless -->
                         <li><a href="#">Home</a></li>
-                        <li><a href="#about_us">About Us</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#service">Tutors</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="about_us.php">About Us</a></li>
+                        <li><a href="guides.php">Guides</a></li>
+                        <li><a href="tutors.php">Tutors</a></li>
+                        <li><a href="contact_us.php">Contact Us</a></li>
 
                         <?php if (isset($_SESSION['user_id'])): ?> <!--Show when logged in -->
                         <li><a class="footer_menu" href=<?php echo ($_SESSION['is_admin'] == 1) ? 'admin.php' : 'dashboard.php'; ?>> Account</a> </li>
