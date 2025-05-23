@@ -1,19 +1,5 @@
 <?php
 require_once 'db.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = $_POST['tutor_id'] ?? 0;
-    $action = $_POST['action'] ?? '';
-
-    if ($id && in_array($action, ['accept', 'reject'])) {
-        $status = $action === 'accept' ? 'accepted' : 'rejected';
-        $stmt = $conn->prepare("UPDATE tutors SET status = ? WHERE id = ?");
-        $stmt->bind_param("si", $status, $id);
-        $stmt->execute();
-        $stmt->close();
-    }
-}
-
 $result = $conn->query("SELECT * FROM tutors WHERE status = 'pending'");
 ?>
 <!DOCTYPE html>
@@ -26,7 +12,7 @@ $result = $conn->query("SELECT * FROM tutors WHERE status = 'pending'");
             <img src="<?= htmlspecialchars($row['pfp_url']) ?>" width="80"><br>
             <strong><?= htmlspecialchars($row['tutor_name']) ?></strong><br>
             <em><?= htmlspecialchars($row['bio']) ?></em><br>
-            <form method="post" style="margin-top:5px;">
+            <form method="post"action="action.php" style="margin-top:5px;">
                 <input type="hidden" name="tutor_id" value="<?= $row['id'] ?>">
                 <button name="action" value="accept">Accept</button>
                 <button name="action" value="reject">Reject</button>

@@ -23,8 +23,7 @@ switch ($action) {
         break;
     
     case 'accept':
-        header("Location: accept_tutor_logic.php");
-        accept_logic($conn);
+        accept_logic();
         break;
 
     case 'reject':
