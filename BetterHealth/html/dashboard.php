@@ -152,10 +152,10 @@ $random_quote = $quotes[array_rand($quotes)];
                      <ul>
                         <!-- Show regardless -->
                         <li><a href="#">Home</a></li>
-                        <li><a href="#about_us">About Us</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#service">Services</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="about_us.php">About Us</a></li>
+                        <li><a href="guides.php">Guides</a></li>
+                        <li><a href="tutors.php">Services</a></li>
+                        <li><a href="contact_us.php">Tutors</a></li>
 
                         <?php if (isset($_SESSION['user_id'])): ?> <!--Show when logged in -->
                         <li><a class="footer_menu" href="account.php"> Account</a> </li>

@@ -271,9 +271,9 @@ include 'db.php';
                         </div>
 
                         <?php if (isset($_SESSION['is_tutor']) && $_SESSION['is_tutor'] == 0): ?>
-                           <div class="seemore_bt tutor_btn">
+                           <!-- <div class="seemore_bt tutor_btn">
                                  <a href="tutorregistration.php">Register as a Tutor</a>
-                           </div>
+                           </div> -->
                         <?php endif; ?>
                      <?php else: ?>
                         <!-- Optional: show nothing, or show link to sign up -->

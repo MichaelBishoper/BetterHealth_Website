@@ -49,6 +49,7 @@ $errors = $_SESSION['errors'] ?? '';
             align-items: center;
             background-color: whitesmoke;
             padding: 9.5px; /* Changes the thickness of the form box */
+            border-radius: 2.5%;
             }
 
             .form_container {
@@ -76,6 +77,11 @@ $errors = $_SESSION['errors'] ?? '';
             border: none;
             cursor: pointer;
             width: 100%;
+            }
+
+            input[type=file]:hover {
+            background-color:rgb(197, 202, 200);
+            color: black;
             }
 
             button {
@@ -133,7 +139,7 @@ $errors = $_SESSION['errors'] ?? '';
             .cancelbtn {
             width: auto;
             padding: 10px 18px;
-            background-color: #f44336;
+            background-color:rgb(43, 110, 22);
             }
 
             .container {
@@ -157,6 +163,10 @@ $errors = $_SESSION['errors'] ?? '';
                 width: 100%;
             }
             }
+
+            button.home-tutors {
+                background-color: #04AA6D;
+            }
       </style>
 </head>
 <body>  
@@ -175,9 +185,11 @@ $errors = $_SESSION['errors'] ?? '';
                 <input type="file" id="upload_file" name="upload_file"><br>
                 <div class="custom-file-btn"> Upload ID </div>
             </div>
-
+            <div class="home-tutors">
             <button type="submit" id="submit" value="Submit">Register as a Tutor</button>  
-            <button class="cancelbtn" type="button" onclick="window.location.href='index.php'">Cancel</button>
+            <button class="cancelbtn" type="button" onclick="window.location.href='index.php'">Home</button>
+            <button class="cancelbtn" type="button" onclick="window.location.href='index.php'">Tutors</button>
+            </div>
 
             <?php if (!empty($errors)): ?>
                 <ul style="color: red;">

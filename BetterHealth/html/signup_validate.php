@@ -1,4 +1,5 @@
 <?php
+    session_start();
     function signup_validate() {
         global $conn;
         $username = trim($_POST['username'] ?? '');
@@ -42,7 +43,8 @@
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $username, $email, $hashedPassword);
-    
+        
+
         if ($stmt->execute()) {
             $_SESSION['success'] = "Signup successful! You can now log in.";
             unset($_SESSION['old']);

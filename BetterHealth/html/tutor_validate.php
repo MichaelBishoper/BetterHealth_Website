@@ -1,4 +1,5 @@
 <?php
+session_start();
 function tutor_validate() {
     global $conn;
     $errors = [];

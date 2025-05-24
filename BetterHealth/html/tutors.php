@@ -35,6 +35,28 @@ include 'db.php';
       <link rel="stylesheet" href="css/owl.carousel.min.css">
       <link rel="stylesheet" href="css/owl.theme.default.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+      <style>
+         .tutor-btn {
+         color: #10e2bd;
+         font-size: 0.5rem;
+      }
+            .seemore_bt {
+         width: 170px;
+         margin: 0 auto;
+         text-align: center;
+         display: flex;
+      }
+
+      .seemore_bt a {
+         width: 100%;
+         text-align: center;
+         font-size: 16px;
+         color: #ffffff;
+         background-color: #252525;
+         padding: 10px 0px;
+         margin-top: 40px;
+      }
+      </style>
    </head>
    <body>
       <!--header section start -->
@@ -121,6 +143,11 @@ include 'db.php';
                ?>
 
                   </section>
+                  <?php if($_SESSION['is_tutor'] != 1): ?>
+                  <div class="seemore_bt tutor_btn">
+                                 <a href="tutorregistration.php">Register as a Tutor</a>
+                           </div>
+                  <?php endif; ?>
                </div>
             </div>
          </div>
@@ -140,13 +167,13 @@ include 'db.php';
                      <ul>
                         <!-- Show regardless -->
                         <li><a href="#">Home</a></li>
-                        <li><a href="#about_us">About Us</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#service">Services</a></li>
-                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="about_us.php">About Us</a></li>
+                        <li><a href="guides.php">Guides</a></li>
+                        <li><a href="tutors.php">Tutors</a></li>
+                        <li><a href="contact_us.php">Contact Us</a></li>
 
                         <?php if (isset($_SESSION['user_id'])): ?> <!--Show when logged in -->
-                        <li><a class="footer_menu" href="account.php"> Account</a> </li>
+                        <li><a class="footer_menu" href=<?php echo ($_SESSION['is_admin'] == 1) ? 'admin.php' : 'dashboard.php'; ?>> Account</a> </li>
                         <li><a class="footer_menu" href="logout.php" onclick="return confirmLogout();"> Logout</a> </li>
                         <?php else: ?> <!--Show when NOT logged in -->
                         <li class="nav-item">

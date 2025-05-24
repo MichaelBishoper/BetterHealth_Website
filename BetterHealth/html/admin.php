@@ -111,7 +111,7 @@
                   </div>
 
                   <div class="tutor-card">
-                  <h4> <a class="useful_text" href="tutor_list.php"><i class="fa fa-user" aria-hidden="true"></i> View Tutors</a> </h4>
+                  <h4> <a class="useful_text" href="tutor_accept.php"><i class="fa fa-user" aria-hidden="true"></i> View Tutors</a> </h4>
                   </div>
 
                   </section>
