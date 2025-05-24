@@ -8,9 +8,27 @@ if (isset($_GET['id'])) {
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
+
+    $row = $result->fetch_assoc();  // <-- fetch the row here
 } else {
     echo "No article selected.";
     exit;
+}
+
+$liked = false;
+if (isset($_SESSION['user_id']) && $result && $row) {
+    $user_id = $_SESSION['user_id'];
+    $article_id = $id;
+
+    $like_check_sql = "SELECT 1 FROM article_likes WHERE user_id = ? AND article_id = ? LIMIT 1";
+    $stmt_like = $conn->prepare($like_check_sql);
+    $stmt_like->bind_param("ii", $user_id, $article_id);
+    $stmt_like->execute();
+    $stmt_like->store_result();
+    if ($stmt_like->num_rows > 0) {
+        $liked = true;
+    }
+    $stmt_like->close();
 }
 ?> 
 
@@ -45,6 +63,20 @@ if (isset($_GET['id'])) {
      <link rel="stylesheet" href="css/owl.carousel.min.css">
      <link rel="stylesheet" href="css/owl.theme.default.min.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+
+     <style>
+         .liked_heart {
+            color: red;
+         }
+
+         .unliked_heart {
+            color: grey;
+         }
+
+         i.liked_heart:hover {
+            color:rgb(0, 0, 0);
+         }
+     </style>
 </head>
 
 <body> 
@@ -84,7 +116,7 @@ if (isset($_GET['id'])) {
  </div>
 
  <main>
-    <?php if ($result && $row = $result->fetch_assoc()) : ?>
+    <?php if ($row): ?>
         <h1 class="gallery_taital"><?php echo htmlspecialchars($row['title']); ?></h1>
         <h2 class="client_text subheading">By <?php echo htmlspecialchars($row['author']); ?></h2>
         <p class="client_text">
@@ -94,6 +126,19 @@ if (isset($_GET['id'])) {
         <h2>Article not found.</h2>
         <p>Try returning to the <a href="index.php">homepage</a>.</p>
     <?php endif; ?>
- </main>
+
+    <?php if (isset($_SESSION['user_id']) && $row): ?>
+        <form action="article_like.php" method="POST" style="margin-top: 20px;">
+            <input type="hidden" name="article_id" value="<?= htmlspecialchars($id) ?>">
+            <button class="like-btn" style="background:none; border:none; font-size:18px; cursor:pointer;">
+            <i class="fa fa-heart <?= $liked ? 'liked_heart' : 'unliked_heart' ?>"></i>
+            <?= $liked ? 'Liked' : 'Like' ?>
+            </button>
+        </form>
+        <!-- Extra protection -->
+    <?php elseif (!isset($_SESSION['user_id'])): ?>
+        <p><em><a href="login.php">Log in</a> to like this article.</em></p>
+    <?php endif; ?>
+</main>
 </body>
 </html>

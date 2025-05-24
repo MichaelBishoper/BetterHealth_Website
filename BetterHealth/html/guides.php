@@ -72,6 +72,16 @@ include 'db.php';
             margin-bottom: 30px;
          }
 
+         .liked_heart {
+            color: red;
+         }
+
+         .unliked_heart {
+            color: grey;
+         }
+
+         
+
       </style>
 </head>
 <body>
@@ -136,13 +146,105 @@ include 'db.php';
          <div class="container">
             <div class="row">
                <div class="col-sm-12">
-                  <h1 class="gallery_taital">Our Guides</h1>
+                  <h1 class="gallery_taital">Liked Guides</h1>
                </div>
             </div>
             <div class="">
         <div class="gallery_section_2">
     
+    <div class="row"> <!-- Iterates Over While Loop -->
+<?php
+   $liked_articles = [];
+   if (isset($_SESSION['user_id'])) {
+      $user_id = $_SESSION['user_id'];
+      $like_sql = "SELECT article_id FROM article_likes WHERE user_id = ?";
+      $stmt = $conn->prepare($like_sql);
+      $stmt->bind_param("i", $user_id);
+      $stmt->execute();
+      $like_result = $stmt->get_result();
+      while ($like_row = $like_result->fetch_assoc()) {
+         $liked_articles[] = $like_row['article_id'];
+      }
+      $stmt->close();
+   }
+   // Filter only liked articles
+   $sql = "
+   SELECT a.*
+   FROM articles a
+   INNER JOIN article_likes al ON a.id = al.article_id
+   WHERE al.user_id = ?
+   ORDER BY a.created_at DESC
+   ";
+
+   $stmt = $conn->prepare($sql);
+   $stmt->bind_param("i", $_SESSION['user_id']);
+   $stmt->execute();
+   $result = $stmt->get_result();
+
+   if ($result && $result->num_rows > 0):
+       while ($row = $result->fetch_assoc()):  // Start While Loop
+?>
+   <div class="col-md-4"> 
+      <div class="container_main">
+         <p class="gallery-item">
+            <?= htmlspecialchars($row['title']) ?><br>
+            <small><em>by <?= htmlspecialchars($row['author']) ?></em></small>
+         </p>
+         <img src="images/gallery_img<?= rand(1,3) ?>.jpg" alt="Article Image" class="image">
+         <div class="overlay">
+            <div class="text">
+               <?php if (isset($_SESSION['user_id'])): ?>
+               <a href="article_template.php?id=<?php echo htmlspecialchars($row['id']); ?>"> 
+                  Read More <i class="fa fa-search" aria-hidden="true"></i>
+               </a>
+               <?php else: ?>
+               <span style="cursor: not-allowed;" title="Login Required">
+                  <i class="fa fa-lock" aria-hidden="true"></i>
+               </span>
+               <?php endif; ?>
+            </div>
+         </div>
+                  
+         <?php
+            $article_id = $row['id'];
+            $is_liked = in_array($article_id, $liked_articles);
+         ?>
+         <div class="like-section">
+            <?php if (isset($_SESSION['user_id'])): ?>
+               <form action="like_article.php" method="POST" style="display:inline;">
+                  <input type="hidden" name="article_id" value="<?= $article_id ?>">
+                  <button type="submit" name="like" class="like-btn" style="background:none;border:none;">
+                     <?php if ($is_liked): ?>
+                        <i class="fa fa-heart liked_heart"></i> Liked
+                     <?php else: ?>
+                        <i class="fa fa-heart unliked_heart"></i> Like
+                     <?php endif; ?>
+                  </button>
+               </form>
+            <?php else: ?>
+               <span title="Login to like">🤍</span>
+            <?php endif; ?>
+         </div>
+
+      </div> <!-- .container_main -->
+   </div> <!-- .col-md-4 -->
+
+<?php
+       endwhile;  // 🔁 END LOOP
+   else:
+       echo "<p>No articles found.</p>";
+   endif;
+?>
+</div>
+   
+
     <div class="row">
+               <div class="col-sm-12">
+                  <h1 class="gallery_taital">All Guides</h1>
+               </div>
+            </div>
+      
+    <div class="row"> <!-- Iterates Over While Loop -->
     <?php
     $sql = "SELECT * FROM articles ORDER BY created_at DESC";
     $result = $conn->query($sql);
@@ -150,7 +252,7 @@ include 'db.php';
     if ($result && $result->num_rows > 0):
         while ($row = $result->fetch_assoc()):
     ?>
-    <div class="col-md-4">
+    <div class="col-md-4"> 
         <div class="container_main">
             <p class="gallery-item">
                 <?= htmlspecialchars($row['title']) ?><br>
@@ -178,6 +280,8 @@ include 'db.php';
         endif;
     ?>
     </div>
+
+
 </div>
                   <!-- <div class="row">
                      <div class="col-md-4">

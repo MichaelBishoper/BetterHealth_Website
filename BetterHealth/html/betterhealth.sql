@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2025 at 02:10 PM
+-- Generation Time: May 24, 2025 at 07:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,19 +44,27 @@ INSERT INTO `articles` (`id`, `title`, `author`, `content`, `created_at`, `user_
 (10, 'Primus', 'Arthur', 'jjjjjjjjjjjjjjj', '2025-05-07 02:04:40', NULL),
 (11, 'The Time and Place', 'Russell Dean', '\"It is better to keep your mouth closed and let people think you are a fool than to open it and remove all doubt.\"', '2025-05-07 04:19:54', NULL),
 (12, 'Swiss German University', 'Test Article 5', 'Are Onions Good For Bodybuilding?\r\nIf you’re planning to add bodybuilding to your life, onions might not be the first thing you think about when you think about your bodybuilding diet but they are packed full of nutrients and can be highly beneficial. Vitamins that onions have in them include Vitamin B6 and Vitamin C (like in orange juice), as well as minerals like potassium.\r\n\r\nBut, as you might expect, it is their flavonoids and antioxidants (especially quercetin) that make them really powerful.\r\n\r\nIt is well known that quercetin is anti-inflammatory and an immune enhancer. In other words, for bodybuilders, it means less inflammation in the muscles and a quicker recovery. The anti-oxidative effects also help combat the free radicals created during intense workouts that otherwise would slow down recovery and growth of muscles.', '2025-05-22 13:49:27', NULL),
-(13, 'Swiss German University', 'Arthur', 'Are Onions Good For Bodybuilding?\r\nIf you’re planning to add bodybuilding to your life, onions might not be the first thing you think about when you think about your bodybuilding diet but they are packed full of nutrients and can be highly beneficial. Vitamins that onions have in them include Vitamin B6 and Vitamin C (like in orange juice), as well as minerals like potassium.\r\n\r\nBut, as you might expect, it is their flavonoids and antioxidants (especially quercetin) that make them really powerful.\r\n\r\nIt is well known that quercetin is anti-inflammatory and an immune enhancer. In other words, for bodybuilders, it means less inflammation in the muscles and a quicker recovery. The anti oxidative effects also help combat the free radicals created during intense workouts that otherwise would slow down recovery and growth of muscles.', '2025-05-22 13:50:43', NULL);
+(13, 'Swiss German University', 'Arthur', 'Are Onions Good For Bodybuilding?\r\nIf you’re planning to add bodybuilding to your life, onions might not be the first thing you think about when you think about your bodybuilding diet but they are packed full of nutrients and can be highly beneficial. Vitamins that onions have in them include Vitamin B6 and Vitamin C (like in orange juice), as well as minerals like potassium.\r\n\r\nBut, as you might expect, it is their flavonoids and antioxidants (especially quercetin) that make them really powerful.\r\n\r\nIt is well known that quercetin is anti-inflammatory and an immune enhancer. In other words, for bodybuilders, it means less inflammation in the muscles and a quicker recovery. The anti oxidative effects also help combat the free radicals created during intense workouts that otherwise would slow down recovery and growth of muscles.', '2025-05-22 13:50:43', NULL),
+(14, 'Clair De Lune', 'The Bussy', 'I love the bussy.', '2025-05-24 13:06:18', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `logins`
+-- Table structure for table `article_likes`
 --
 
-CREATE TABLE `logins` (
-  `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL
+CREATE TABLE `article_likes` (
+  `user_id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
+  `liked_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `article_likes`
+--
+
+INSERT INTO `article_likes` (`user_id`, `article_id`, `liked_at`) VALUES
+(210, 14, '2025-05-24 23:09:35');
 
 -- --------------------------------------------------------
 
@@ -83,8 +91,13 @@ INSERT INTO `tutors` (`id`, `tutor_name`, `bio`, `pfp_url`, `status`, `created_a
 (2, '[TestTutor]', '[This is my bio]', '[\"C:xampphtdocsTempBetterBetterHealthhtmlimagesanner-bg.png\"]', '', '2025-05-22 02:31:15', 202),
 (3, 'tutor123', 'aoiefoweihfwef', 'uploads/682e8cd7d0e29_fruit.jpg', 'pending', '2025-05-22 02:32:55', 203),
 (4, 'Orlean Wesley', 'I am Orlean Wesley', 'uploads/682ff5a89eb11_banner-bg.png', 'pending', '2025-05-23 04:12:24', 204),
-(5, 'Orlean Wesleys', 'I am Orlean Wesley', 'uploads/682ff70b42cd5_BetterHealth_Banner.png', 'pending', '2025-05-23 04:18:19', 205),
-(10, 'test4', 'test4', 'uploads/6831aa9475624_img1.webp', 'pending', '2025-05-24 11:16:36', 208);
+(5, 'Orlean Wesleys', 'I am Orlean Wesley', 'uploads/682ff70b42cd5_BetterHealth_Banner.png', 'accepted', '2025-05-23 04:18:19', 205),
+(6, 'Arthur', 'ilshw', 'uploads/68318c69af0ae_img3.jpg', 'accepted', '2025-05-24 09:07:53', 206),
+(7, 'Arthur2', 'ilshw2', 'uploads/6831932856054_img3.jpg', 'accepted', '2025-05-24 09:36:40', 208),
+(8, 'Deddy', 'I want to be a deddy', 'uploads/6831b81eaa695_BetterHealth_Banner.png', 'accepted', '2025-05-24 12:14:22', 210),
+(9, 'Graha Raya', 'I am Graha Raya....', 'uploads/6831bd5ef2a2c_fruit.jpg', 'accepted', '2025-05-24 12:36:46', 211),
+(10, 'i am account5', 'i am shrek', 'uploads/6831c03834ebf_Tutor_1.jpg', 'accepted', '2025-05-24 12:48:56', 212),
+(11, 'hilarius russel', 'I am a fitness expert', 'uploads/6831c3b668693_Tutor_3.jpg', 'accepted', '2025-05-24 13:03:50', 209);
 
 -- --------------------------------------------------------
 
@@ -114,11 +127,14 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_admin`, `is_tuto
 (202, 'memek221', 'kk@email.c', '$2y$10$4O7cL4k2Yxd5SiI/9WwTNubFvP.J1hpy4gScprh9JsiXKF1n2UEli', 0, 0, ''),
 (203, 'hahahaha123', 'aa@gmail.com', '$2y$10$RBOdasOofvCTHD4xeFmmLekWoXsv23goan1j/18oUXzFit2eKy8l6', 0, 0, ''),
 (204, 'jethroshutup', 'jethro@gmail.com', '$2y$10$o9gZww0pceVCWIK31FGfheGwst0SvL7JFp0hXNCR5z5PBzSfLHwtG', 0, 0, ''),
-(205, 'hikmahcorp', 'himah@corpo.com', '$2y$10$yj6uaBnoY/rxYe5cS4LXHOkxqnszgPvm3ZwxlffQUUiyGEHIV3Uvu', 0, 0, ''),
-(206, 'james_g', 'james@gmail.com', '$2y$10$fUd.kT1I0olXWYVbviELU.Nq.2ebKfz8n/cv2jLaRDuWOW0xXUtCS', 0, 0, ''),
+(205, 'hikmahcorp', 'himah@corpo.com', '$2y$10$yj6uaBnoY/rxYe5cS4LXHOkxqnszgPvm3ZwxlffQUUiyGEHIV3Uvu', 0, 1, ''),
+(206, 'james_g', 'james@gmail.com', '$2y$10$fUd.kT1I0olXWYVbviELU.Nq.2ebKfz8n/cv2jLaRDuWOW0xXUtCS', 0, 1, ''),
 (207, 'kontol111', 'kontol111@gmail.com', '$2y$10$10nlfKoeDRleDLGP6WR.FeZkOx4zqOaADCVWujtZ7uhKP1nxbdgem', 0, 0, ''),
-(208, 'test', 'test@gmail.com', '$2y$10$SVAYavpr7pt2L.lGXoPqy.xgWff8/.7dRHs5he65r1SY3beAfjrXm', 0, 0, ''),
-(209, 'testing', 'testing@gmail.com', '$2y$10$YhFuAHuHkZa/UCpIpxnK9OFMRdFMFPqe19JhHfzTVC26qCgQrJZge', 0, 0, '');
+(208, 'test', 'test@gmail.com', '$2y$10$SVAYavpr7pt2L.lGXoPqy.xgWff8/.7dRHs5he65r1SY3beAfjrXm', 0, 1, ''),
+(209, 'account2', 'account2@email.com', '$2y$10$Jp/TNrKSjbSJxiLNpy7l8eY8iDHoVM8qUQ.DzBboj90H2MsyCvdEy', 0, 1, ''),
+(210, 'account3', 'account3@gmail.com', '$2y$10$vxcwPpA6HVQmb7Ih7lp6VemAwEJivMnPSmr6hLmc6.DM/5cj31IVy', 1, 0, ''),
+(211, 'account4', 'account4@gmail.com', '$2y$10$i9D4kqWsM92MYjP846mGc.326KRpL9O1BpRHgjJc4yRV/WayLXXTm', 0, 1, ''),
+(212, 'account5', 'account5@gmail.com', '$2y$10$zLRrJdHJSg6wtev5VjIdH.WDymkH7ilxE/iuv3jxuhSaybiSTCJ3S', 0, 1, '');
 
 --
 -- Indexes for dumped tables
@@ -132,10 +148,11 @@ ALTER TABLE `articles`
   ADD KEY `fk_articles_user` (`user_id`);
 
 --
--- Indexes for table `logins`
+-- Indexes for table `article_likes`
 --
-ALTER TABLE `logins`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `article_likes`
+  ADD PRIMARY KEY (`user_id`,`article_id`),
+  ADD KEY `article_id` (`article_id`);
 
 --
 -- Indexes for table `tutors`
@@ -159,25 +176,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT for table `logins`
---
-ALTER TABLE `logins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tutors`
 --
 ALTER TABLE `tutors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
 
 --
 -- Constraints for dumped tables
@@ -188,6 +199,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `articles`
   ADD CONSTRAINT `fk_articles_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `article_likes`
+--
+ALTER TABLE `article_likes`
+  ADD CONSTRAINT `article_likes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `article_likes_ibfk_2` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`);
 
 --
 -- Constraints for table `tutors`
