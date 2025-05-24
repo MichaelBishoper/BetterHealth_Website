@@ -2,6 +2,30 @@
 function tutor_validate() {
     global $conn;
     $errors = [];
+    
+    $user_id = $_SESSION['user_id'] ?? null;
+    if (!$user_id) {
+        header("Location: index.php");
+        exit;
+    }
+
+    $stmt = $conn->prepare("SELECT status FROM tutors WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $stmt->bind_result($status);
+    $stmt->fetch();
+    $stmt->close();
+
+    if ($status === 'rejected') {
+        // Delete the old rejected request
+        $delete = $conn->prepare("DELETE FROM tutors WHERE user_id = ?");
+        $delete->bind_param("i", $user_id);
+        $delete->execute();
+        $delete->close();
+    } elseif ($status === 'pending' || $status === 'accepted') {
+        header("Location: index.php");
+        exit;
+    }
 
     $tutor_name = trim($_POST['tutor_name'] ?? '');
     $bio = trim($_POST['bio'] ?? '');
@@ -40,15 +64,6 @@ function tutor_validate() {
     exit;
     }
 
-        // Get current logged-in user's ID from session
-    if (!isset($_SESSION['user_id'])) {
-        $errors[] = "You must be logged in to register as a tutor.";
-        $_SESSION['errors'] = $errors;
-        $_SESSION['old'] = $_POST;
-        header("Location: TutorRegistration.php");
-        exit;
-    }
-    $user_id = $_SESSION['user_id'];
 
     // insert into tutors table and await admin approval
     $stmt = $conn->prepare("INSERT INTO tutors (tutor_name, bio, pfp_url, user_id) VALUES (?, ?, ?, ?)");

@@ -1,10 +1,6 @@
 <?php
 session_start();
-
-if(!isset($_SESSION['user_id'])) {
-    header("Location: index.php");
-    exit;
-}
+require_once 'check_existing_tutor.php'; // kicks if user is already a tutor or pending 
 
 $old_name = $_SESSION['old']['tutor_name'] ?? '';
 $old_bio = $_SESSION['old']['bio'] ?? '';
@@ -183,18 +179,20 @@ $errors = $_SESSION['errors'] ?? '';
             <button type="submit" id="submit" value="Submit">Register as a Tutor</button>  
             <button class="cancelbtn" type="button" onclick="window.location.href='index.php'">Cancel</button>
 
+            <?php if (!empty($errors)): ?>
+                <ul style="color: red;">
+                <?php foreach ($errors as $error): ?>
+                    <li><?= htmlspecialchars($error) ?></li>
+                <?php endforeach; ?>
+                </ul>
+                <?php unset($_SESSION['errors'], $_SESSION['old']);?>
+            <?php endif; ?>
+
             </form>
         </div>
     </div>
     
-        <?php if (!empty($errors)): ?>
-        <ul style="color: red;">
-        <?php foreach ($errors as $error): ?>
-            <li><?= htmlspecialchars($error) ?></li>
-        <?php endforeach; ?>
-        </ul>
-        <?php unset($_SESSION['errors'], $_SESSION['old']);?>
-    <?php endif; ?>
+
 </body>
 </html>
 
