@@ -10,6 +10,7 @@ $old_name = $_SESSION['old']['tutor_name'] ?? '';
 $old_bio = $_SESSION['old']['bio'] ?? '';
 $errors = $_SESSION['errors'] ?? '';
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -70,8 +70,8 @@ include 'db.php';
                         <li class="nav-item">
                            <a class="nav-link" href="logout.php" onclick="return confirmLogout();">Logout</a>
                         </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="admin.php">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</a>
+                         <li class="nav-item">
+                           <a class="nav-link" href="<?php echo ($_SESSION['is_admin'] == 1) ? 'admin.php' : 'dashboard.php'; ?>">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</a>
                         </li>
                         <?php else: ?>
                         <!-- Show only when NOT logged in -->
