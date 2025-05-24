@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2025 at 12:11 PM
+-- Generation Time: May 24, 2025 at 02:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -84,8 +84,7 @@ INSERT INTO `tutors` (`id`, `tutor_name`, `bio`, `pfp_url`, `status`, `created_a
 (3, 'tutor123', 'aoiefoweihfwef', 'uploads/682e8cd7d0e29_fruit.jpg', 'pending', '2025-05-22 02:32:55', 203),
 (4, 'Orlean Wesley', 'I am Orlean Wesley', 'uploads/682ff5a89eb11_banner-bg.png', 'pending', '2025-05-23 04:12:24', 204),
 (5, 'Orlean Wesleys', 'I am Orlean Wesley', 'uploads/682ff70b42cd5_BetterHealth_Banner.png', 'pending', '2025-05-23 04:18:19', 205),
-(6, 'Arthur', 'ilshw', 'uploads/68318c69af0ae_img3.jpg', 'pending', '2025-05-24 09:07:53', 206),
-(7, 'Arthur2', 'ilshw2', 'uploads/6831932856054_img3.jpg', 'pending', '2025-05-24 09:36:40', 208);
+(10, 'test4', 'test4', 'uploads/6831aa9475624_img1.webp', 'pending', '2025-05-24 11:16:36', 208);
 
 -- --------------------------------------------------------
 
@@ -118,7 +117,8 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_admin`, `is_tuto
 (205, 'hikmahcorp', 'himah@corpo.com', '$2y$10$yj6uaBnoY/rxYe5cS4LXHOkxqnszgPvm3ZwxlffQUUiyGEHIV3Uvu', 0, 0, ''),
 (206, 'james_g', 'james@gmail.com', '$2y$10$fUd.kT1I0olXWYVbviELU.Nq.2ebKfz8n/cv2jLaRDuWOW0xXUtCS', 0, 0, ''),
 (207, 'kontol111', 'kontol111@gmail.com', '$2y$10$10nlfKoeDRleDLGP6WR.FeZkOx4zqOaADCVWujtZ7uhKP1nxbdgem', 0, 0, ''),
-(208, 'test', 'test@gmail.com', '$2y$10$SVAYavpr7pt2L.lGXoPqy.xgWff8/.7dRHs5he65r1SY3beAfjrXm', 0, 0, '');
+(208, 'test', 'test@gmail.com', '$2y$10$SVAYavpr7pt2L.lGXoPqy.xgWff8/.7dRHs5he65r1SY3beAfjrXm', 0, 0, ''),
+(209, 'testing', 'testing@gmail.com', '$2y$10$YhFuAHuHkZa/UCpIpxnK9OFMRdFMFPqe19JhHfzTVC26qCgQrJZge', 0, 0, '');
 
 --
 -- Indexes for dumped tables
@@ -171,13 +171,13 @@ ALTER TABLE `logins`
 -- AUTO_INCREMENT for table `tutors`
 --
 ALTER TABLE `tutors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=209;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=210;
 
 --
 -- Constraints for dumped tables
