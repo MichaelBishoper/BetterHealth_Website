@@ -155,10 +155,12 @@ include 'db.php';
                ?>
 
                   </section>
-                  <?php if($_SESSION['is_tutor'] != 1): ?>
-                  <div class="seemore_bt tutor_btn">
-                                 <a href="tutorregistration.php">Register as a Tutor</a>
-                           </div>
+                  <?php if (isset($_SESSION['is_tutor']) && $_SESSION['is_tutor'] == 1): ?>
+                     <!-- User is tutor, do nothing or put tutor-specific code here -->
+                  <?php else: ?>
+                     <div class="seemore_bt tutor_btn">
+                        <a href="tutorregistration.php">Register as a Tutor</a>
+                     </div>
                   <?php endif; ?>
                </div>
             </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2025 at 07:26 PM
+-- Generation Time: May 25, 2025 at 06:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,11 +41,14 @@ CREATE TABLE `articles` (
 --
 
 INSERT INTO `articles` (`id`, `title`, `author`, `content`, `created_at`, `user_id`) VALUES
-(10, 'Primus', 'Arthur', 'jjjjjjjjjjjjjjj', '2025-05-07 02:04:40', NULL),
-(11, 'The Time and Place', 'Russell Dean', '\"It is better to keep your mouth closed and let people think you are a fool than to open it and remove all doubt.\"', '2025-05-07 04:19:54', NULL),
-(12, 'Swiss German University', 'Test Article 5', 'Are Onions Good For Bodybuilding?\r\nIf you’re planning to add bodybuilding to your life, onions might not be the first thing you think about when you think about your bodybuilding diet but they are packed full of nutrients and can be highly beneficial. Vitamins that onions have in them include Vitamin B6 and Vitamin C (like in orange juice), as well as minerals like potassium.\r\n\r\nBut, as you might expect, it is their flavonoids and antioxidants (especially quercetin) that make them really powerful.\r\n\r\nIt is well known that quercetin is anti-inflammatory and an immune enhancer. In other words, for bodybuilders, it means less inflammation in the muscles and a quicker recovery. The anti-oxidative effects also help combat the free radicals created during intense workouts that otherwise would slow down recovery and growth of muscles.', '2025-05-22 13:49:27', NULL),
-(13, 'Swiss German University', 'Arthur', 'Are Onions Good For Bodybuilding?\r\nIf you’re planning to add bodybuilding to your life, onions might not be the first thing you think about when you think about your bodybuilding diet but they are packed full of nutrients and can be highly beneficial. Vitamins that onions have in them include Vitamin B6 and Vitamin C (like in orange juice), as well as minerals like potassium.\r\n\r\nBut, as you might expect, it is their flavonoids and antioxidants (especially quercetin) that make them really powerful.\r\n\r\nIt is well known that quercetin is anti-inflammatory and an immune enhancer. In other words, for bodybuilders, it means less inflammation in the muscles and a quicker recovery. The anti oxidative effects also help combat the free radicals created during intense workouts that otherwise would slow down recovery and growth of muscles.', '2025-05-22 13:50:43', NULL),
-(14, 'Clair De Lune', 'The Bussy', 'I love the bussy.', '2025-05-24 13:06:18', NULL);
+(10, 'Primus', 'Arthur', 'jjjjjjjjjjjjjjj', '2025-05-07 02:04:40', 211),
+(11, 'The Time and Place', 'Russell Dean', '\"It is better to keep your mouth closed and let people think you are a fool than to open it and remove all doubt.\"', '2025-05-07 04:19:54', 211),
+(12, 'Swiss German University', 'Test Article 5', 'Are Onions Good For Bodybuilding?\r\nIf you’re planning to add bodybuilding to your life, onions might not be the first thing you think about when you think about your bodybuilding diet but they are packed full of nutrients and can be highly beneficial. Vitamins that onions have in them include Vitamin B6 and Vitamin C (like in orange juice), as well as minerals like potassium.\r\n\r\nBut, as you might expect, it is their flavonoids and antioxidants (especially quercetin) that make them really powerful.\r\n\r\nIt is well known that quercetin is anti-inflammatory and an immune enhancer. In other words, for bodybuilders, it means less inflammation in the muscles and a quicker recovery. The anti-oxidative effects also help combat the free radicals created during intense workouts that otherwise would slow down recovery and growth of muscles.', '2025-05-22 13:49:27', 211),
+(13, 'Swiss German University', 'Arthur', 'Are Onions Good For Bodybuilding?\r\nIf you’re planning to add bodybuilding to your life, onions might not be the first thing you think about when you think about your bodybuilding diet but they are packed full of nutrients and can be highly beneficial. Vitamins that onions have in them include Vitamin B6 and Vitamin C (like in orange juice), as well as minerals like potassium.\r\n\r\nBut, as you might expect, it is their flavonoids and antioxidants (especially quercetin) that make them really powerful.\r\n\r\nIt is well known that quercetin is anti-inflammatory and an immune enhancer. In other words, for bodybuilders, it means less inflammation in the muscles and a quicker recovery. The anti oxidative effects also help combat the free radicals created during intense workouts that otherwise would slow down recovery and growth of muscles.', '2025-05-22 13:50:43', 211),
+(14, 'Clair De Lune', 'The Bussy', 'I love the bussy.', '2025-05-24 13:06:18', 213),
+(15, 'Test Article Tutor', 'Account4', 'This is first guide! Please be sure to leave a like and subscribe...', '2025-05-25 15:47:34', 211),
+(16, 'This is my guide', 'I am Graha Raya.', 'Graha Raya', '2025-05-25 16:16:51', 211),
+(17, 'This is my story', 'I don\'t have time for this shit!', 'Account6', '2025-05-25 16:23:41', 213);
 
 -- --------------------------------------------------------
 
@@ -64,7 +67,8 @@ CREATE TABLE `article_likes` (
 --
 
 INSERT INTO `article_likes` (`user_id`, `article_id`, `liked_at`) VALUES
-(210, 14, '2025-05-24 23:09:35');
+(210, 14, '2025-05-24 23:09:35'),
+(211, 14, '2025-05-25 21:55:52');
 
 -- --------------------------------------------------------
 
@@ -97,7 +101,8 @@ INSERT INTO `tutors` (`id`, `tutor_name`, `bio`, `pfp_url`, `status`, `created_a
 (8, 'Deddy', 'I want to be a deddy', 'uploads/6831b81eaa695_BetterHealth_Banner.png', 'accepted', '2025-05-24 12:14:22', 210),
 (9, 'Graha Raya', 'I am Graha Raya....', 'uploads/6831bd5ef2a2c_fruit.jpg', 'accepted', '2025-05-24 12:36:46', 211),
 (10, 'i am account5', 'i am shrek', 'uploads/6831c03834ebf_Tutor_1.jpg', 'accepted', '2025-05-24 12:48:56', 212),
-(11, 'hilarius russel', 'I am a fitness expert', 'uploads/6831c3b668693_Tutor_3.jpg', 'accepted', '2025-05-24 13:03:50', 209);
+(11, 'hilarius russel', 'I am a fitness expert', 'uploads/6831c3b668693_Tutor_3.jpg', 'accepted', '2025-05-24 13:03:50', 209),
+(12, 'Xaverius', 'The Best Tutor', 'uploads/6832ac3771ba8_default_pfp.png', 'accepted', '2025-05-25 05:35:51', 213);
 
 -- --------------------------------------------------------
 
@@ -134,7 +139,8 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_admin`, `is_tuto
 (209, 'account2', 'account2@email.com', '$2y$10$Jp/TNrKSjbSJxiLNpy7l8eY8iDHoVM8qUQ.DzBboj90H2MsyCvdEy', 0, 1, ''),
 (210, 'account3', 'account3@gmail.com', '$2y$10$vxcwPpA6HVQmb7Ih7lp6VemAwEJivMnPSmr6hLmc6.DM/5cj31IVy', 1, 0, ''),
 (211, 'account4', 'account4@gmail.com', '$2y$10$i9D4kqWsM92MYjP846mGc.326KRpL9O1BpRHgjJc4yRV/WayLXXTm', 0, 1, ''),
-(212, 'account5', 'account5@gmail.com', '$2y$10$zLRrJdHJSg6wtev5VjIdH.WDymkH7ilxE/iuv3jxuhSaybiSTCJ3S', 0, 1, '');
+(212, 'account5', 'account5@gmail.com', '$2y$10$zLRrJdHJSg6wtev5VjIdH.WDymkH7ilxE/iuv3jxuhSaybiSTCJ3S', 0, 1, ''),
+(213, 'account6', 'account6@gmail.com', '$2y$10$e.IXfZH/lBYjmqfioSH5d.OMgpZ8eC396w/8H2LChipUDtOcFcESK', 0, 1, '');
 
 --
 -- Indexes for dumped tables
@@ -176,19 +182,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tutors`
 --
 ALTER TABLE `tutors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
 
 --
 -- Constraints for dumped tables

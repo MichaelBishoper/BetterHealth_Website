@@ -83,6 +83,21 @@ if ($isTutor == 1) {
             text-align: center;
         }
         
+        .tutor_articles {
+            text-align: center;
+        }
+
+        .flex-item {
+            background-color: whitesmoke;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5%;
+        }
+
+        .services_taital_2 {
+         margin-top: 60px;
+         margin-bottom: 20px;
+        }
        
       </style>
    </head>
@@ -101,16 +116,16 @@ if ($isTutor == 1) {
                            <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="#about_us">About Us</a>
+                           <a class="nav-link" href="about_us.php">About Us</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="g">Guides</a>
+                           <a class="nav-link" href="guides.php">Guides</a>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="tutors.php">Tutors</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="#contact">Contact Us</a>
+                           <a class="nav-link" href="contact">Contact Us</a>
                         </li>
 
                         <!-- PHP -->
@@ -136,7 +151,6 @@ if ($isTutor == 1) {
                         <li class="nav-item">
                            <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
                         </li>
-                        
                   </ul>
                </div>
             </nav>
@@ -150,22 +164,60 @@ if ($isTutor == 1) {
                
                   <h1 class="services_taital">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></h1>
                   <p class="services_text"><?php echo htmlspecialchars($quotes[array_rand($quotes)]); ?></p>
-                  <?php if ($isTutor == 1): ?>
-   <div style="margin-top: 40px;">
-      <h2 class="services_taital" style="font-size: 32px;">My Articles</h2>
-      <?php if (count($myArticles) > 0): ?>
-         <?php foreach ($myArticles as $article): ?>
-            <div class="article-card" style="background:#f2f2f2;padding:15px;border-radius:10px;margin:15px 0;">
-               <h3><?= htmlspecialchars($article['title']) ?></h3>
-               <p><?= htmlspecialchars(substr($article['content'], 0, 100)) ?>...</p>
-               <a href="article_template.php?id=<?= $article['id'] ?>" style="color:blue;">Read More</a>
-            </div>
-         <?php endforeach; ?>
-      <?php else: ?>
-         <p style="text-align:center;color:#fff;">You haven't written any articles yet bruh.</p>
-      <?php endif; ?>
-   </div>
+                  <?php
+                  $query = "SELECT * FROM articles WHERE user_id = ?";  
+                  $stmt = $conn->prepare($query);
+                  $stmt->bind_param("i", $userId);  
+                  $stmt->execute();
+                  $result = $stmt->get_result();
+                  ?>
+                  <!-- Might break -->
+<?php if ($isTutor == 1): ?>
+   
+                  <h1 class="services_taital services_taital_2"> Your Guides: </h1>
+                  
+
+                  <?php while ($row = $result->fetch_assoc()) : ?>
+                     <div class="flex-container">
+                           <div class="flex-item">
+                              <h2><?php echo htmlspecialchars($row['title']); ?></h2>
+                              <p>Author: <?php echo htmlspecialchars($row['author']); ?></p>
+                              <p><strong>Published on:</strong> <?php echo htmlspecialchars($row['created_at']); ?></p>
+                              <p><a href="article_template.php?id=<?php echo htmlspecialchars($row['id']); ?>">Read More</a></p>
+                           </div>
+                     </div>
+    <?php endwhile; ?>
+<?php else: ?>
 <?php endif; ?>
+         <?php if (isset($_SESSION['user_id'])): ?> <!--Show when logged in -->
+         <div class="services_section layout_padding" id="service">
+         <div class="container">
+            <div class="row">
+               <div class="col-sm-12">
+                  <h2 class="services_taital">Tutor Tools</h2>
+
+                  <section id="tutors" class="tutor-section">
+
+                  <div class="tutor-card">
+                  <h4> <a class="useful_text" href="tutor_create_article.php"><i class="fa fa-plus" aria-hidden="true"></i> Create a Guide</a> </h4>
+                  </div>
+                  
+                  <div class="tutor-card">
+                  <h4> <a class="useful_text" href="article_gallery.php"><i class="fa fa-book" aria-hidden="true"></i> Manage Articles </a> </h4>
+                  </div>
+
+                  </section>
+                  <div class="seemore_tut seemore_bt">
+                  <a href="index.php"> Back to Home </a>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+         </div>
+         <?php endif; ?>
+
+
             </div>
          </div>
        </div>
@@ -183,7 +235,7 @@ if ($isTutor == 1) {
                   <div class="footer_menu">
                      <ul>
                         <!-- Show regardless -->
-                        <li><a href="#">Home</a></li>
+                        <li><a href="index.php">Home</a></li>
                         <li><a href="about_us.php">About Us</a></li>
                         <li><a href="guides.php">Guides</a></li>
                         <li><a href="tutors.php">Services</a></li>

@@ -1,12 +1,11 @@
 <?php
-// Start the session to track the admin user
 session_start();
 
 //start connection with db
 require_once 'db.php';
 
-// Check if user is logged in as admin
-if (!isset($_SESSION['user_id']) || $_SESSION['is_admin'] !== 1) {
+// Check if user is logged in as tutor
+if (!isset($_SESSION['user_id']) || $_SESSION['is_tutor'] !== 1) {
     header("Location: index.php"); // Redirect to login if not admin
     exit;
 }
@@ -132,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script>
       function confirmAdd() {
-      return confirm("Confirm to add article.");
+      return confirm("Confirm to add guide.");
       }
     </script>
 </body>

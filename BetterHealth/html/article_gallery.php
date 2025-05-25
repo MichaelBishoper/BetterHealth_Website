@@ -68,8 +68,13 @@ $result = $stmt->get_result();
 <body>
 <header class="site-header">
     <nav class="nav-bar">
-        <a href="index.php">Home</a>
-        <a href="article_gallery.php">Articles</a>
+        <?php if ($_SESSION['is_tutor'] == 1): ?>
+            <a href="dashboard.php">Back</a>
+        <?php endif; ?>
+        <?php if ($_SESSION['is_tutor'] == 1): ?>
+            <a href="index.php">Home</a>
+        <?php endif; ?>
+        <a href="article+gallery.php">Articles</a>
         <?php if ($_SESSION['is_admin'] == 1): ?>
             <a href="create_article.php">Add Articles</a>
         <?php endif; ?>
@@ -81,21 +86,55 @@ $result = $stmt->get_result();
         <?php endif; ?>
     </nav>
 </header> 
+    
 
+<?php if ($_SESSION['is_admin'] == 1): 
+// Show if user is ADMIN    
+?>
     <h1>Article Gallery</h1>
     <!-- Loop through Database -->
     <?php while ($row = $result->fetch_assoc()) : ?>
+        <div class="flex-container">
+            <div class="flex-item">
+                <h2><?php echo htmlspecialchars($row['title']); ?></h2>
+                <p>Author: <?php echo htmlspecialchars($row['author']); ?></p>
+                <p><strong>Published on:</strong> <?php echo htmlspecialchars($row['created_at']); ?></p>
+                <p><a href="article_template.php?id=<?php echo htmlspecialchars($row['id']); ?>">Read More</a></p>
+                <p><a href="delete_article.php?id=<?= urlencode($row['id']) ?>"
+                      onclick="return confirm('Are you sure you want to delete this article?');">Delete</a></p>
+            </div>
+        </div>
+    <?php endwhile; ?>
+<?php else: ?>
+<?php endif; ?>
+
+<?php
+// Show if user is tutor
+// Added filter for user's OWN articles
+$user_id = $_SESSION['user_id'];
+$stmt = $conn->prepare("SELECT id, title, author, created_at FROM articles WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+?>
+
+<h1>My Articles</h1>
+<?php while ($row = $result->fetch_assoc()) : ?>
     <div class="flex-container">
         <div class="flex-item">
             <h2><?php echo htmlspecialchars($row['title']); ?></h2>
             <p>Author: <?php echo htmlspecialchars($row['author']); ?></p>
             <p><strong>Published on:</strong> <?php echo htmlspecialchars($row['created_at']); ?></p>
-            <p><a href="article_template.php?id=<?php echo htmlspecialchars($row['id']); ?>"> Read More </a></p>
-            <p><a href="delete_article.php?id=<?= urlencode($row['id']) ?>"
-            onclick="return confirm('Are you sure you want to delete this article?');"> Delete </a></p>
+            <p><a href="article_template.php?id=<?php echo htmlspecialchars($row['id']); ?>">Read More</a></p>
+            <p>
+                <a href="delete_article.php?id=<?= urlencode($row['id']) ?>"
+                   onclick="return confirm('Are you sure you want to delete this article?');">Delete</a>
+            </p>
         </div>
     </div>
-    <?php endwhile; ?>
+<?php endwhile; ?>
+
+
       
 </body>
 </html>
