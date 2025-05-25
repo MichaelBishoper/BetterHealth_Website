@@ -5,6 +5,11 @@ if(!isset($_SESSION['username'])){
 } 
 include 'db.php';
 
+$userId = $_SESSION['user_id'];
+$isTutor = $_SESSION['is_tutor']; 
+$isAdmin = isset($_SESSION['is_admin']) ? $_SESSION['is_admin'] : 0;
+
+
 $quotes = [
     "Believe you can and you're halfway there.",
     "Every accomplishment starts with the decision to try.",
@@ -16,8 +21,19 @@ $quotes = [
 
 $random_quote = $quotes[array_rand($quotes)];
 
-?>
+$myArticles = [];
 
+if ($isTutor == 1) {
+    $stmt = $conn->prepare("SELECT * FROM articles WHERE user_id = ?");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    while ($row = $result->fetch_assoc()) {
+        $myArticles[] = $row;
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -134,6 +150,22 @@ $random_quote = $quotes[array_rand($quotes)];
                
                   <h1 class="services_taital">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></h1>
                   <p class="services_text"><?php echo htmlspecialchars($quotes[array_rand($quotes)]); ?></p>
+                  <?php if ($isTutor == 1): ?>
+   <div style="margin-top: 40px;">
+      <h2 class="services_taital" style="font-size: 32px;">My Articles</h2>
+      <?php if (count($myArticles) > 0): ?>
+         <?php foreach ($myArticles as $article): ?>
+            <div class="article-card" style="background:#f2f2f2;padding:15px;border-radius:10px;margin:15px 0;">
+               <h3><?= htmlspecialchars($article['title']) ?></h3>
+               <p><?= htmlspecialchars(substr($article['content'], 0, 100)) ?>...</p>
+               <a href="article_template.php?id=<?= $article['id'] ?>" style="color:blue;">Read More</a>
+            </div>
+         <?php endforeach; ?>
+      <?php else: ?>
+         <p style="text-align:center;color:#fff;">You haven't written any articles yet bruh.</p>
+      <?php endif; ?>
+   </div>
+<?php endif; ?>
             </div>
          </div>
        </div>
