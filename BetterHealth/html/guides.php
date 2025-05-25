@@ -230,9 +230,9 @@ include 'db.php';
    </div> <!-- .col-md-4 -->
 
 <?php
-       endwhile;  // 🔁 END LOOP
+       endwhile;  //  END LOOP
    else:
-       echo "<p>No articles found.</p>";
+       echo "<p>Love an article? Like it to save it! </p>";
    endif;
 ?>
 </div>
@@ -276,7 +276,7 @@ include 'db.php';
     <?php
         endwhile;
         else:
-            echo "<p>No articles found.</p>";
+            echo "<p>Love an article? Like it to save it! </p>";
         endif;
     ?>
     </div>

@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // Get old inputs or set defaults (so u dont have to fill in whats already right again)
 $username = $_SESSION['old']['username'] ?? '';

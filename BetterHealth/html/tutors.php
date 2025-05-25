@@ -56,6 +56,17 @@ include 'db.php';
          padding: 10px 0px;
          margin-top: 40px;
       }
+
+      .tutor-card img {
+      }
+
+      img {
+       
+      }
+
+      .services_text {
+         margin-bottom: 15px;
+      }
       </style>
    </head>
    <body>
@@ -129,8 +140,9 @@ include 'db.php';
 
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
+                               $pfp = !empty($row['pfp_url']) ? htmlspecialchars($row['pfp_url']) : 'images/default_pfp.png';
                                 echo '<div class="tutor-card">';
-                                echo '<img src="' . htmlspecialchars($row['pfp_url']) . '" alt="' . htmlspecialchars($row['tutor_name']) . '" style="width: 100%; max-width: 250px; height: auto;">';
+                                echo '<img src="'. $pfp . '" style="width: 250px; height: 250px;">';
                                 echo '<h3 class="services_taital">' . htmlspecialchars($row['tutor_name']) . '</h3>';
                                 echo '<p>' . htmlspecialchars($row['bio']) . '</p>';
                                 echo '</div>';
