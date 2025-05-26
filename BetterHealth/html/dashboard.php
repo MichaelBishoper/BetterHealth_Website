@@ -92,12 +92,30 @@ if ($isTutor == 1) {
             margin: 10px;
             padding: 10px;
             border-radius: 5%;
+            width: 370px;
+            height: 200px;
         }
 
         .services_taital_2 {
          margin-top: 60px;
          margin-bottom: 20px;
-        }
+      }
+
+       .flex-container {
+         display: flex;
+         flex-direction: row;
+      }
+
+      .row {
+         display: flex;
+      }
+      
+      .footer_section {
+         height: 12h;
+      }
+
+      .layout_padding {
+      }
        
       </style>
    </head>
@@ -172,12 +190,11 @@ if ($isTutor == 1) {
                   $result = $stmt->get_result();
                   ?>
                   <!-- Might break -->
-<?php if ($isTutor == 1): ?>
-   
+               <?php if ($isTutor == 1): ?>
+                  <!-- Show your articles -->
                   <h1 class="services_taital services_taital_2"> Your Guides: </h1>
-                  
-
                   <?php while ($row = $result->fetch_assoc()) : ?>
+                  <div class="article_wrapper">
                      <div class="flex-container">
                            <div class="flex-item">
                               <h2><?php echo htmlspecialchars($row['title']); ?></h2>
@@ -186,13 +203,13 @@ if ($isTutor == 1) {
                               <p><a href="article_template.php?id=<?php echo htmlspecialchars($row['id']); ?>">Read More</a></p>
                            </div>
                      </div>
+                  </div>
     <?php endwhile; ?>
 <?php else: ?>
 <?php endif; ?>
          <?php if (isset($_SESSION['user_id'])): ?> <!--Show when logged in -->
          <div class="services_section layout_padding" id="service">
          <div class="container">
-            <div class="row">
                <div class="col-sm-12">
                   <h2 class="services_taital">Tutor Tools</h2>
 
@@ -212,15 +229,15 @@ if ($isTutor == 1) {
                   </div>
 
                </div>
-            </div>
-         </div>
+         
          </div>
          <?php endif; ?>
+         </div>
 
-
-            </div>
+            
          </div>
        </div>
+      </div>
       <!-- Tutors section end -->
       <!-- footer section start -->
       <div class="footer_section layout_padding">
