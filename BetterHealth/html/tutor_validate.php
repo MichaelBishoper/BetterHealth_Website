@@ -46,6 +46,7 @@ function tutor_validate() {
     }
     $stmt->close();
 
+    // Create folder called uploads and stores images there
     //check if file is uploaded succesfully
     if (!file_exists('uploads')) {
         mkdir('uploads', 0777, true);

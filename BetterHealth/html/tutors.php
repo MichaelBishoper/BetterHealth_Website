@@ -135,24 +135,31 @@ include 'db.php';
                   <p class="services_text">Our tutors can help you streamline your fitness journey and get you from zero to hero in no time. </p>
                   <section id="tutors" class="tutor-section">
                   <?php
-                   $sql = "SELECT tutor_name, bio, pfp_url FROM tutors WHERE status = 'accepted'";
+                   $sql = "SELECT tutor_name, bio, pfp_url, user_id FROM tutors WHERE status = 'accepted'";
                         $result = $conn->query($sql);
-
+                        
                         if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                               $pfp = !empty($row['pfp_url']) ? htmlspecialchars($row['pfp_url']) : 'images/default_pfp.png';
-                                echo '<div class="tutor-card">';
-                                echo '<img src="'. $pfp . '" style="width: 250px; height: 250px;">';
-                                echo '<h3 class="services_taital">' . htmlspecialchars($row['tutor_name']) . '</h3>';
-                                echo '<p>' . htmlspecialchars($row['bio']) . '</p>';
-                                echo '</div>';
-                            }
+                        while ($row = $result->fetch_assoc()) {
+                           // Default profile picture
+                           $pfp = !empty($row['pfp_url']) ? htmlspecialchars($row['pfp_url']) : 'uploads/default_pfp.png';
+                           $user_id = urlencode($row['user_id']);
+
+                           echo '<div class="tutor-card">';
+                           // Open respective tutor page
+                           echo '<a href="tutor_profile.php?id=' . $user_id . '">';
+                           echo '<img src="' . $pfp . '" style="width: 250px; height: 250px;">';
+                           
+                           echo '</a>';
+                           echo '<h3 class="services_taital">' . htmlspecialchars($row['tutor_name']) . '</h3>';
+                           echo '<p>' . htmlspecialchars($row['bio']) . '</p>';
+                           echo '</div>';
+                        }
                         } else {
                             echo '<p>No tutors available right now.</p>';
                         }
 
                         $conn->close();
-               ?>
+                  ?>
 
                   </section>
                   <?php if (isset($_SESSION['is_tutor']) && $_SESSION['is_tutor'] == 1): ?>
@@ -180,7 +187,7 @@ include 'db.php';
                   <div class="footer_menu">
                      <ul>
                         <!-- Show regardless -->
-                        <li><a href="#">Home</a></li>
+                        <li><a href="index.php">Home</a></li>
                         <li><a href="about_us.php">About Us</a></li>
                         <li><a href="guides.php">Guides</a></li>
                         <li><a href="tutors.php">Tutors</a></li>

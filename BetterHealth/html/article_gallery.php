@@ -5,7 +5,7 @@ session_start();
 require_once 'db.php';
 $conn = $GLOBALS['conn'];
 
-$stmt = $conn->prepare("SELECT * FROM articles");  // No status filter anymore
+$stmt = $conn->prepare("SELECT * FROM articles");  
 $stmt->execute();
 $result = $stmt->get_result();
 ?>

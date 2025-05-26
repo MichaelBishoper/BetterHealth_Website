@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2025 at 06:41 PM
+-- Generation Time: May 26, 2025 at 05:39 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,7 +48,8 @@ INSERT INTO `articles` (`id`, `title`, `author`, `content`, `created_at`, `user_
 (14, 'Clair De Lune', 'The Bussy', 'I love the bussy.', '2025-05-24 13:06:18', 213),
 (15, 'Test Article Tutor', 'Account4', 'This is first guide! Please be sure to leave a like and subscribe...', '2025-05-25 15:47:34', 211),
 (16, 'This is my guide', 'I am Graha Raya.', 'Graha Raya', '2025-05-25 16:16:51', 211),
-(17, 'This is my story', 'I don\'t have time for this shit!', 'Account6', '2025-05-25 16:23:41', 213);
+(17, 'This is my story', 'I don\'t have time for this shit!', 'Account6', '2025-05-25 16:23:41', 213),
+(18, 'Account 5, a story', 'My name is account 5, i was the fifth account to ever be created...', 'Account5', '2025-05-26 14:47:05', 212);
 
 -- --------------------------------------------------------
 
@@ -91,10 +92,10 @@ CREATE TABLE `tutors` (
 --
 
 INSERT INTO `tutors` (`id`, `tutor_name`, `bio`, `pfp_url`, `status`, `created_at`, `user_id`) VALUES
-(1, 'Chung', 'lalalala', 'uploads/682df1fa977ea_BetterHealth_Banner.png', 'pending', '2025-05-21 15:32:10', 201),
+(1, 'Chung', 'lalalala', 'uploads/682df1fa977ea_BetterHealth_Banner.png', 'rejected', '2025-05-21 15:32:10', 201),
 (2, '[TestTutor]', '[This is my bio]', '[\"C:xampphtdocsTempBetterBetterHealthhtmlimagesanner-bg.png\"]', '', '2025-05-22 02:31:15', 202),
-(3, 'tutor123', 'aoiefoweihfwef', 'uploads/682e8cd7d0e29_fruit.jpg', 'pending', '2025-05-22 02:32:55', 203),
-(4, 'Orlean Wesley', 'I am Orlean Wesley', 'uploads/682ff5a89eb11_banner-bg.png', 'pending', '2025-05-23 04:12:24', 204),
+(3, 'tutor123', 'aoiefoweihfwef', 'uploads/682e8cd7d0e29_fruit.jpg', 'rejected', '2025-05-22 02:32:55', 203),
+(4, 'Orlean Wesley', 'I am Orlean Wesley', 'uploads/682ff5a89eb11_banner-bg.png', 'rejected', '2025-05-23 04:12:24', 204),
 (5, 'Orlean Wesleys', 'I am Orlean Wesley', 'uploads/682ff70b42cd5_BetterHealth_Banner.png', 'accepted', '2025-05-23 04:18:19', 205),
 (6, 'Arthur', 'ilshw', 'uploads/68318c69af0ae_img3.jpg', 'accepted', '2025-05-24 09:07:53', 206),
 (7, 'Arthur2', 'ilshw2', 'uploads/6831932856054_img3.jpg', 'accepted', '2025-05-24 09:36:40', 208),
@@ -102,7 +103,9 @@ INSERT INTO `tutors` (`id`, `tutor_name`, `bio`, `pfp_url`, `status`, `created_a
 (9, 'Graha Raya', 'I am Graha Raya....', 'uploads/6831bd5ef2a2c_fruit.jpg', 'accepted', '2025-05-24 12:36:46', 211),
 (10, 'i am account5', 'i am shrek', 'uploads/6831c03834ebf_Tutor_1.jpg', 'accepted', '2025-05-24 12:48:56', 212),
 (11, 'hilarius russel', 'I am a fitness expert', 'uploads/6831c3b668693_Tutor_3.jpg', 'accepted', '2025-05-24 13:03:50', 209),
-(12, 'Xaverius', 'The Best Tutor', 'uploads/6832ac3771ba8_default_pfp.png', 'accepted', '2025-05-25 05:35:51', 213);
+(12, 'Xaverius', 'The Best Tutor', 'uploads/6832ac3771ba8_default_pfp.png', 'accepted', '2025-05-25 05:35:51', 213),
+(13, 'Graha Raya Real', 'We hate the Graha Raya that is not real...', 'uploads/683487ec08b1a_6832ac3771ba8_default_pfp.png', 'accepted', '2025-05-26 15:25:32', 215),
+(14, 'Bintaro Exchange Mall', 'We are young!', 'uploads/683488cb5f000_gallery_img2.jpg', 'accepted', '2025-05-26 15:29:15', 216);
 
 -- --------------------------------------------------------
 
@@ -140,7 +143,10 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_admin`, `is_tuto
 (210, 'account3', 'account3@gmail.com', '$2y$10$vxcwPpA6HVQmb7Ih7lp6VemAwEJivMnPSmr6hLmc6.DM/5cj31IVy', 1, 0, ''),
 (211, 'account4', 'account4@gmail.com', '$2y$10$i9D4kqWsM92MYjP846mGc.326KRpL9O1BpRHgjJc4yRV/WayLXXTm', 0, 1, ''),
 (212, 'account5', 'account5@gmail.com', '$2y$10$zLRrJdHJSg6wtev5VjIdH.WDymkH7ilxE/iuv3jxuhSaybiSTCJ3S', 0, 1, ''),
-(213, 'account6', 'account6@gmail.com', '$2y$10$e.IXfZH/lBYjmqfioSH5d.OMgpZ8eC396w/8H2LChipUDtOcFcESK', 0, 1, '');
+(213, 'account6', 'account6@gmail.com', '$2y$10$e.IXfZH/lBYjmqfioSH5d.OMgpZ8eC396w/8H2LChipUDtOcFcESK', 0, 1, ''),
+(214, 'the_man', 'theman@gmail.com', '$2y$10$MfDsjW9Lzu.rlbTQUPItUuqztUSBirpXFwDIvH7HoPExd25D3spHu', 0, 0, ''),
+(215, 'account7', 'abcde@gmail.com', '$2y$10$WjeB5r680mCthCgW0CTAC.QCBPDOUnqjqpBTV96bboWU3Gs3Ostg2', 0, 1, ''),
+(216, 'account8', 'afe@gmail.com', '$2y$10$tClfUh6RD.ngTM6WuOKJbuDkAQIpHAPuK7gAQ40sQeUX2lkmeK0DG', 0, 1, '');
 
 --
 -- Indexes for dumped tables
@@ -182,19 +188,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tutors`
 --
 ALTER TABLE `tutors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=214;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
 
 --
 -- Constraints for dumped tables
