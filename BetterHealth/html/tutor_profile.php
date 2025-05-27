@@ -153,11 +153,30 @@ $tutor = $result->fetch_assoc();
       </div>
       <!--header section end -->
       <!-- TUTORS section start -->
+      <?php
+         $subscribed = false;
+         if (isset($_SESSION['user_id']) && isset($tutor_id)) {
+         $stmt = $conn->prepare("SELECT 1 FROM tutor_subscribe WHERE user_id = ? AND tutor_id = ?");
+         $stmt->bind_param("ii", $_SESSION['user_id'], $tutor_id);
+         $stmt->execute();
+         $stmt->store_result();
+         $subscribed = $stmt->num_rows > 0;
+         $stmt->close();
+      }
+      ?>
+
       <div class="services_section layout_padding" id="service">
          <div class="container">
             <h1> This tutor is: <?php htmlspecialchars($tutor['tutor_name'])?>. </h1>
-            </div>
+            <?php if (isset($_SESSION['user_id']) && isset($tutor_id)): ?>
+               <form action="tutor_subscribe.php" method="POST" style="margin-top: 20px;">
+                     <input type="hidden" name="tutor_id" value="<?= htmlspecialchars($tutor_id) ?>">
+                     <button type="submit">Subscribe</button>
+               </form>
+            <?php endif; ?>
          </div>
+         </div>
+         
          </div>
       <!-- Tutors section end -->
       <!-- footer section start -->

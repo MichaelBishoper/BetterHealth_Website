@@ -4,7 +4,10 @@ session_start();
 // Check if 'id' is passed in URL
 if (isset($_GET['id'])) {
     $id = (int) $_GET['id']; // Sanitize input
-    $stmt = $conn->prepare("SELECT title, content, author FROM articles WHERE id = ?");
+      $stmt = $conn->prepare("SELECT a.title, a.content, a.author, t.tutor_name, t.user_id 
+                            FROM articles a 
+                            JOIN tutors t ON a.user_id = t.user_id 
+                            WHERE a.id = ?"); //Gets the title, content, author from articles and tutor_name and user_id  from tutors of the article id
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -107,7 +110,7 @@ if (isset($_SESSION['user_id']) && $result && $row) {
                 <?php if ($_SESSION['is_admin'] == 1): ?>
                    <a class="nav-link" href="admin.php">Admin</a>
                 <?php endif; ?>
-               
+            
                 
              </ul>
           </div>
@@ -118,7 +121,10 @@ if (isset($_SESSION['user_id']) && $result && $row) {
  <main>
     <?php if ($row): ?>
         <h1 class="gallery_taital"><?php echo htmlspecialchars($row['title']); ?></h1>
-        <h2 class="client_text subheading">By <?php echo htmlspecialchars($row['author']); ?></h2>
+        <h2 class="client_text subheading">Author: <?php echo htmlspecialchars($row['author']); ?></h2>
+        <h2 class="client_text subheading"> Uploaded by: <a href="tutor_profile.php?id=<?= htmlspecialchars($row['user_id']); ?>"> <!-- Display clickable tutor_name-->
+        <?= htmlspecialchars($row['tutor_name']); ?></a>
+</h2> 
         <p class="client_text">
             <?php echo nl2br(htmlspecialchars($row['content'])); ?>
         </p>

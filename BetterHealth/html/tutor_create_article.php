@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // SQL here
     $user_id = $_SESSION['user_id']; // Don't go around breakin' young girl's hearts
     $stmt = $conn->prepare("INSERT INTO articles (title, author, content, user_id) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("sssi", $title, $content, $author, $user_id);
+    $stmt->bind_param("sssi", $title, $author, $content, $user_id);
     $stmt->execute();
     $stmt->close();
 
