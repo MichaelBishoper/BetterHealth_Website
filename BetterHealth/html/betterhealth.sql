@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2025 at 05:39 PM
+-- Generation Time: May 28, 2025 at 05:01 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -110,6 +110,18 @@ INSERT INTO `tutors` (`id`, `tutor_name`, `bio`, `pfp_url`, `status`, `created_a
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tutor_subscribe`
+--
+
+CREATE TABLE `tutor_subscribe` (
+  `user_id` int(11) NOT NULL,
+  `tutor_id` int(11) NOT NULL,
+  `subscribed_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -174,6 +186,13 @@ ALTER TABLE `tutors`
   ADD KEY `fk_tutors_user` (`user_id`);
 
 --
+-- Indexes for table `tutor_subscribe`
+--
+ALTER TABLE `tutor_subscribe`
+  ADD PRIMARY KEY (`user_id`,`tutor_id`),
+  ADD KEY `tutor_id` (`tutor_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -224,6 +243,13 @@ ALTER TABLE `article_likes`
 --
 ALTER TABLE `tutors`
   ADD CONSTRAINT `fk_tutors_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tutor_subscribe`
+--
+ALTER TABLE `tutor_subscribe`
+  ADD CONSTRAINT `tutor_subscribe_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tutor_subscribe_ibfk_2` FOREIGN KEY (`tutor_id`) REFERENCES `tutors` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
