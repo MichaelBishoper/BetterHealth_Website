@@ -4,7 +4,8 @@ session_start();
 require_once 'db.php';
 
 $conn = $GLOBALS['conn'];
-
+$user_id = $_SESSION['user_id'];
+$tutor_id = intval($_GET['id']); 
 if (!isset($_GET['id'])) {
     echo "No tutor ID provided.";
     exit;
@@ -169,10 +170,12 @@ $tutor = $result->fetch_assoc();
          <div class="container">
             <h1> This tutor is: <?php htmlspecialchars($tutor['tutor_name'])?>. </h1>
             <?php if (isset($_SESSION['user_id']) && isset($tutor_id)): ?>
-               <form action="tutor_subscribe.php" method="POST" style="margin-top: 20px;">
-                     <input type="hidden" name="tutor_id" value="<?= htmlspecialchars($tutor_id) ?>">
-                     <button type="submit">Subscribe</button>
-               </form>
+        <form action="tutor_subscribe.php" method="POST">
+            <input type="hidden" name="tutor_id" value="<?php echo $tutor_id; ?>">
+            <button type="submit" name="subscribe">Subscribe</button>
+         </form>
+
+               
             <?php endif; ?>
          </div>
          </div>

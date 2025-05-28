@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2025 at 05:01 AM
+-- Generation Time: May 28, 2025 at 07:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -105,7 +105,8 @@ INSERT INTO `tutors` (`id`, `tutor_name`, `bio`, `pfp_url`, `status`, `created_a
 (11, 'hilarius russel', 'I am a fitness expert', 'uploads/6831c3b668693_Tutor_3.jpg', 'accepted', '2025-05-24 13:03:50', 209),
 (12, 'Xaverius', 'The Best Tutor', 'uploads/6832ac3771ba8_default_pfp.png', 'accepted', '2025-05-25 05:35:51', 213),
 (13, 'Graha Raya Real', 'We hate the Graha Raya that is not real...', 'uploads/683487ec08b1a_6832ac3771ba8_default_pfp.png', 'accepted', '2025-05-26 15:25:32', 215),
-(14, 'Bintaro Exchange Mall', 'We are young!', 'uploads/683488cb5f000_gallery_img2.jpg', 'accepted', '2025-05-26 15:29:15', 216);
+(14, 'Bintaro Exchange Mall', 'We are young!', 'uploads/683488cb5f000_gallery_img2.jpg', 'accepted', '2025-05-26 15:29:15', 216),
+(15, 'Skbiidi', 'cock and balls', 'uploads/68368770a7069_vyke_1080p.png', 'accepted', '2025-05-28 03:48:00', 217);
 
 -- --------------------------------------------------------
 
@@ -118,6 +119,14 @@ CREATE TABLE `tutor_subscribe` (
   `tutor_id` int(11) NOT NULL,
   `subscribed_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tutor_subscribe`
+--
+
+INSERT INTO `tutor_subscribe` (`user_id`, `tutor_id`, `subscribed_at`) VALUES
+(208, 205, '2025-05-28 12:02:06'),
+(208, 208, '2025-05-28 12:01:34');
 
 -- --------------------------------------------------------
 
@@ -158,7 +167,8 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_admin`, `is_tuto
 (213, 'account6', 'account6@gmail.com', '$2y$10$e.IXfZH/lBYjmqfioSH5d.OMgpZ8eC396w/8H2LChipUDtOcFcESK', 0, 1, ''),
 (214, 'the_man', 'theman@gmail.com', '$2y$10$MfDsjW9Lzu.rlbTQUPItUuqztUSBirpXFwDIvH7HoPExd25D3spHu', 0, 0, ''),
 (215, 'account7', 'abcde@gmail.com', '$2y$10$WjeB5r680mCthCgW0CTAC.QCBPDOUnqjqpBTV96bboWU3Gs3Ostg2', 0, 1, ''),
-(216, 'account8', 'afe@gmail.com', '$2y$10$tClfUh6RD.ngTM6WuOKJbuDkAQIpHAPuK7gAQ40sQeUX2lkmeK0DG', 0, 1, '');
+(216, 'account8', 'afe@gmail.com', '$2y$10$tClfUh6RD.ngTM6WuOKJbuDkAQIpHAPuK7gAQ40sQeUX2lkmeK0DG', 0, 1, ''),
+(217, 'tutortest1', 'ass@gmail.com', '$2y$10$1jx85Da11b2zP.8Yu9TMO.piRnOTMp4Q4kcxAlJIhqq7fIhj2nKIW', 0, 1, '');
 
 --
 -- Indexes for dumped tables
@@ -190,7 +200,7 @@ ALTER TABLE `tutors`
 --
 ALTER TABLE `tutor_subscribe`
   ADD PRIMARY KEY (`user_id`,`tutor_id`),
-  ADD KEY `tutor_id` (`tutor_id`);
+  ADD KEY `tutor_subscribe_ibfk_2` (`tutor_id`);
 
 --
 -- Indexes for table `users`
@@ -213,13 +223,13 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT for table `tutors`
 --
 ALTER TABLE `tutors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
 
 --
 -- Constraints for dumped tables
@@ -249,7 +259,7 @@ ALTER TABLE `tutors`
 --
 ALTER TABLE `tutor_subscribe`
   ADD CONSTRAINT `tutor_subscribe_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `tutor_subscribe_ibfk_2` FOREIGN KEY (`tutor_id`) REFERENCES `tutors` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `tutor_subscribe_ibfk_2` FOREIGN KEY (`tutor_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

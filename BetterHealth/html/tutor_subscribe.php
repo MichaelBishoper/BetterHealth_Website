@@ -2,13 +2,26 @@
 session_start();
 include 'db.php';
 
-if (!isset($_SESSION['user_id']) || !isset($_POST['tutor_id'])) {
-    header("Location: tutors.php");
+$user_id = $_SESSION['user_id'];
+$tutor_id = intval($_POST['tutor_id']); // Always sanitize input
+
+if (!isset($_POST['tutor_id'])) {
+    echo "No tutor ID provided.";
     exit;
 }
 
-$user_id = $_SESSION['user_id'];
-$tutor_id = $_POST['tutor_id'];
+// sanitize get input
+
+
+
+if (!isset($_SESSION['user_id']) || !isset($_POST['tutor_id'])) {
+    // header("Location: index.php");
+    var_dump($tutor_id);
+    exit;
+}
+
+var_dump($tutor_id);
+
 
 // Checking if already subbed
 $stmt = $conn->prepare("SELECT * FROM tutor_subscribe WHERE user_id = ? AND tutor_id = ?");
