@@ -144,16 +144,7 @@ include 'db.php';
     <!-- GUIDES section start -->
       <div class="gallery_section layout_padding" id="gallery">
          <div class="container">
-            <div class="row">
-               <div class="col-sm-12">
-                  <h1 class="gallery_taital">Liked Guides</h1>
-               </div>
-            </div>
-            <div class="">
-        <div class="gallery_section_2">
-    
-    <div class="row"> <!-- Iterates Over While Loop -->
-<?php
+<?php 
    $liked_articles = [];
    if (isset($_SESSION['user_id'])) {
       $user_id = $_SESSION['user_id'];
@@ -167,6 +158,7 @@ include 'db.php';
       }
       $stmt->close();
    }
+
    // Filter only liked articles
    $sql = "
    SELECT a.*
@@ -180,7 +172,26 @@ include 'db.php';
    $stmt->bind_param("i", $_SESSION['user_id']);
    $stmt->execute();
    $result = $stmt->get_result();
+?>
+            
+            <!-- Only Show when user has liked a guide -->
+            
 
+            <div class="row">
+               <div class="col-sm-12">
+                  <?php if($result->num_rows > 0): ?>
+                  <h1 class="gallery_taital">Liked Guides</h1>
+                  <?php endif ?>
+               </div>
+            </div>
+            
+            <div class="">
+               <div class="gallery_section_2">
+                  <div class="row"> 
+            
+            <!-- Iterates over the user's LIKED GUIDES -->
+
+<?php
    if ($result && $result->num_rows > 0):
        while ($row = $result->fetch_assoc()):  // Start While Loop
 ?>
@@ -230,19 +241,19 @@ include 'db.php';
    </div> <!-- .col-md-4 -->
 
 <?php
-       endwhile;  //  END LOOP
-   else:
-       echo "<p>Love an article? Like it to save it! </p>";
-   endif;
+            endwhile;  //  END LOOP
+         else:
+            echo "<p>Love an article? Like it to save it! </p>";
+         endif;
 ?>
 </div>
    
 
-    <div class="row">
-               <div class="col-sm-12">
-                  <h1 class="gallery_taital">All Guides</h1>
-               </div>
-            </div>
+   <div class="row">
+      <div class="col-sm-12">
+         <h1 class="gallery_taital">All Guides</h1>
+      </div>
+   </div>
       
     <div class="row"> <!-- Iterates Over While Loop -->
     <?php

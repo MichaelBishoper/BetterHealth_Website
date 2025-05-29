@@ -118,6 +118,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 ?>
 
+<?php if ($_SESSION['is_tutor'] == 1): ?>
 <h1>My Articles</h1>
 <?php while ($row = $result->fetch_assoc()) : ?>
     <div class="flex-container">
@@ -133,7 +134,8 @@ $result = $stmt->get_result();
         </div>
     </div>
 <?php endwhile; ?>
-
+<?php else: ?>
+<?php endif; ?>
 
       
 </body>

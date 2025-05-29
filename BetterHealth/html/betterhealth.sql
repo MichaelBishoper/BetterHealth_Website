@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2025 at 07:04 AM
+-- Generation Time: May 29, 2025 at 02:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,15 +41,9 @@ CREATE TABLE `articles` (
 --
 
 INSERT INTO `articles` (`id`, `title`, `author`, `content`, `created_at`, `user_id`) VALUES
-(10, 'Primus', 'Arthur', 'jjjjjjjjjjjjjjj', '2025-05-07 02:04:40', 211),
-(11, 'The Time and Place', 'Russell Dean', '\"It is better to keep your mouth closed and let people think you are a fool than to open it and remove all doubt.\"', '2025-05-07 04:19:54', 211),
-(12, 'Swiss German University', 'Test Article 5', 'Are Onions Good For Bodybuilding?\r\nIf you’re planning to add bodybuilding to your life, onions might not be the first thing you think about when you think about your bodybuilding diet but they are packed full of nutrients and can be highly beneficial. Vitamins that onions have in them include Vitamin B6 and Vitamin C (like in orange juice), as well as minerals like potassium.\r\n\r\nBut, as you might expect, it is their flavonoids and antioxidants (especially quercetin) that make them really powerful.\r\n\r\nIt is well known that quercetin is anti-inflammatory and an immune enhancer. In other words, for bodybuilders, it means less inflammation in the muscles and a quicker recovery. The anti-oxidative effects also help combat the free radicals created during intense workouts that otherwise would slow down recovery and growth of muscles.', '2025-05-22 13:49:27', 211),
 (13, 'Swiss German University', 'Arthur', 'Are Onions Good For Bodybuilding?\r\nIf you’re planning to add bodybuilding to your life, onions might not be the first thing you think about when you think about your bodybuilding diet but they are packed full of nutrients and can be highly beneficial. Vitamins that onions have in them include Vitamin B6 and Vitamin C (like in orange juice), as well as minerals like potassium.\r\n\r\nBut, as you might expect, it is their flavonoids and antioxidants (especially quercetin) that make them really powerful.\r\n\r\nIt is well known that quercetin is anti-inflammatory and an immune enhancer. In other words, for bodybuilders, it means less inflammation in the muscles and a quicker recovery. The anti oxidative effects also help combat the free radicals created during intense workouts that otherwise would slow down recovery and growth of muscles.', '2025-05-22 13:50:43', 211),
 (14, 'Clair De Lune', 'The Bussy', 'I love the bussy.', '2025-05-24 13:06:18', 213),
-(15, 'Test Article Tutor', 'Account4', 'This is first guide! Please be sure to leave a like and subscribe...', '2025-05-25 15:47:34', 211),
-(16, 'This is my guide', 'I am Graha Raya.', 'Graha Raya', '2025-05-25 16:16:51', 211),
-(17, 'This is my story', 'I don\'t have time for this shit!', 'Account6', '2025-05-25 16:23:41', 213),
-(18, 'Account 5, a story', 'My name is account 5, i was the fifth account to ever be created...', 'Account5', '2025-05-26 14:47:05', 212);
+(19, 'This is my guide', 'Kate Bush', 'Alot has changed since I last saw that pretty boy Akram...', '2025-05-29 11:33:23', 212);
 
 -- --------------------------------------------------------
 
@@ -69,7 +63,10 @@ CREATE TABLE `article_likes` (
 
 INSERT INTO `article_likes` (`user_id`, `article_id`, `liked_at`) VALUES
 (210, 14, '2025-05-24 23:09:35'),
-(211, 14, '2025-05-25 21:55:52');
+(211, 14, '2025-05-25 21:55:52'),
+(212, 19, '2025-05-29 18:39:17'),
+(218, 14, '2025-05-29 19:19:22'),
+(218, 19, '2025-05-29 19:19:19');
 
 -- --------------------------------------------------------
 
@@ -106,7 +103,8 @@ INSERT INTO `tutors` (`id`, `tutor_name`, `bio`, `pfp_url`, `status`, `created_a
 (12, 'Xaverius', 'The Best Tutor', 'uploads/6832ac3771ba8_default_pfp.png', 'accepted', '2025-05-25 05:35:51', 213),
 (13, 'Graha Raya Real', 'We hate the Graha Raya that is not real...', 'uploads/683487ec08b1a_6832ac3771ba8_default_pfp.png', 'accepted', '2025-05-26 15:25:32', 215),
 (14, 'Bintaro Exchange Mall', 'We are young!', 'uploads/683488cb5f000_gallery_img2.jpg', 'accepted', '2025-05-26 15:29:15', 216),
-(15, 'Skbiidi', 'cock and balls', 'uploads/68368770a7069_vyke_1080p.png', 'accepted', '2025-05-28 03:48:00', 217);
+(15, 'Skbiidi', 'cock and balls', 'uploads/68368770a7069_vyke_1080p.png', 'accepted', '2025-05-28 03:48:00', 217),
+(16, 'Rey Misterio', 'I am darkness. Hee hee ha ha.', 'uploads/683849ce15159_68368770a7069_vyke_1080p.png', 'accepted', '2025-05-29 11:49:34', 218);
 
 -- --------------------------------------------------------
 
@@ -168,7 +166,8 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_admin`, `is_tuto
 (214, 'the_man', 'theman@gmail.com', '$2y$10$MfDsjW9Lzu.rlbTQUPItUuqztUSBirpXFwDIvH7HoPExd25D3spHu', 0, 0, ''),
 (215, 'account7', 'abcde@gmail.com', '$2y$10$WjeB5r680mCthCgW0CTAC.QCBPDOUnqjqpBTV96bboWU3Gs3Ostg2', 0, 1, ''),
 (216, 'account8', 'afe@gmail.com', '$2y$10$tClfUh6RD.ngTM6WuOKJbuDkAQIpHAPuK7gAQ40sQeUX2lkmeK0DG', 0, 1, ''),
-(217, 'tutortest1', 'ass@gmail.com', '$2y$10$1jx85Da11b2zP.8Yu9TMO.piRnOTMp4Q4kcxAlJIhqq7fIhj2nKIW', 0, 1, '');
+(217, 'tutortest1', 'ass@gmail.com', '$2y$10$1jx85Da11b2zP.8Yu9TMO.piRnOTMp4Q4kcxAlJIhqq7fIhj2nKIW', 0, 1, ''),
+(218, 'Corbin Bleu', 'corbinz@hotmail.com', '$2y$10$QCOFp5.Ff4I00f.641dyn.rFPeTW8ZRgLQCCmAHUzB/0vrfGF64ji', 0, 1, '');
 
 --
 -- Indexes for dumped tables
@@ -217,19 +216,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tutors`
 --
 ALTER TABLE `tutors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=218;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=219;
 
 --
 -- Constraints for dumped tables

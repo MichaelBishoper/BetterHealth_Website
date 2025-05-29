@@ -98,16 +98,17 @@ include 'db.php';
 
                         <!-- PHP -->
 
-                        <?php if (isset($_SESSION['user_id'])): ?>
                         <!-- Show only when logged in -->
+                        <?php if (isset($_SESSION['user_id'])): ?>
                         <li class="nav-item">
                            <a class="nav-link" href="logout.php" onclick="return confirmLogout();">Logout</a>
                         </li>
                          <li class="nav-item">
                            <a class="nav-link" href="<?php echo ($_SESSION['is_admin'] == 1) ? 'admin.php' : 'dashboard.php'; ?>">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</a>
                         </li>
-                        <?php else: ?>
+                        
                         <!-- Show only when NOT logged in -->
+                        <?php else: ?>
                         <li class="nav-item">
                            <a class="nav-link" href="signup.php">Sign Up</a>
                         </li>

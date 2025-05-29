@@ -26,6 +26,7 @@ $random_quote = $quotes[array_rand($quotes)];
 
 $myArticles = [];
 
+
 if ($isTutor == 1) {
     $stmt = $conn->prepare("SELECT * FROM articles WHERE user_id = ?");
     $stmt->bind_param("i", $userId);
@@ -202,8 +203,10 @@ if ($isTutor == 1) {
                   $result = $stmt->get_result();
                   ?>
                   <!-- Might break -->
-               <?php if ($isTutor == 1): ?>
-                  <!-- Show your articles -->
+
+                   <!-- SHOW UR ARTICLES -->
+
+               <?php if (($isTutor == 1) && (!empty($myArticles))): ?>
                   <h1 class="services_taital services_taital_2"> Your Guides: </h1>
                   <?php while ($row = $result->fetch_assoc()) : ?>
                   <div class="article_wrapper">
@@ -232,7 +235,7 @@ if ($isTutor == 1) {
                   </div>
                   
                   <div class="tutor-card">
-                  <h4> <a class="useful_text" href="article_gallery.php"><i class="fa fa-book" aria-hidden="true"></i> Manage Articles </a> </h4>
+                  <h4> <a class="useful_text" href="article_gallery.php"><i class="fa fa-book" aria-hidden="true"></i> Manage Guides </a> </h4>
                   </div>
 
                   </section>

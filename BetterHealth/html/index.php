@@ -128,7 +128,7 @@ include 'db.php';
                               <h1 class="outstanding_text">BetterHealth</h1>
                               <h1 class="coffee_text">Simply Fit</h1>
                               <p class="there_text">This fitness website consists of information curated from the highest echelons of internet health and fitness knowledge. It is designed to help you and guide you throughout your fitness journey, ensuring you get the most benefits from your diets, workouts, etc. This website can act as a guideline to overall health and wellbeing, keeping you healthy, whilst doing most of the scheduling and planning. </p>
-                              <div class="learnmore_bt"><a href="#">Learn More</a></div>
+                              <div class="learnmore_bt"><a href="about_us.php">Learn More</a></div>
                            </div>
                         </div>
                      </div>
@@ -137,10 +137,10 @@ include 'db.php';
                      <div class="row">
                         <div class="col-sm-12">
                            <div class="banner_taital">
-                              <h1 class="outstanding_text">BetterHealth </h1>
-                              <h1 class="coffee_text">Simply Fit</h1>
-                              <p class="there_text">This fitness website consists of information curated from the highest echelons of internet health and fitness knowledge. It is designed to help you and guide you throughout your fitness journey, ensuring you get the most benefits from your diets, workouts, etc. This website can act as a guideline to overall health and wellbeing, keeping you healthy, whilst doing most of the scheduling and planning. </p>
-                              <div class="learnmore_bt"><a href="#">Learn More</a></div>
+                              <h1 class="outstanding_text">Featured Creator </h1>
+                              <h1 class="coffee_text">Talon Fitness</h1>
+                              <iframe width="468" height="166" src="https://www.youtube.com/embed/SjzkAsaFAek" title="Sweets Ranked - Nutrition Tier Lists" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                              <div class="learnmore_bt"><a href="https://www.youtube.com/@Talon_Fitness">Learn More</a></div>
                            </div>
                         </div>
                      </div>
