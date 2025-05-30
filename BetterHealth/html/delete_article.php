@@ -7,7 +7,7 @@ require_once 'db.php';
 $conn = $GLOBALS['conn'];
 
 // Check if user is logged in as admin
-if (!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== 1) {
+if ((!isset($_SESSION['is_admin']) || $_SESSION['is_admin'] !== 1) && (!isset($_SESSION['is_tutor']) || $_SESSION['is_tutor'] !== 1)) {
     header("Location: login.php"); // Redirect to login if not admin
     exit;
 }
