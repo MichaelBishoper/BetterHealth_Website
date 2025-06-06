@@ -131,7 +131,7 @@ include 'db.php';
       <div class="services_section layout_padding" id="service">
          <div class="container">
             <div class="row">
-               <class="col-sm-12">
+               <div class="col-sm-12">
                   <h1 class="services_taital">Tutors</h1>
                   <p class="services_text">Our tutors can help you streamline your fitness journey and get you from zero to hero in no time. </p>
                   <section id="tutors" class="tutor-section">
@@ -146,8 +146,10 @@ include 'db.php';
                            $user_id = urlencode($row['user_id']);
 
                            echo '<div class="tutor-card">';
+                           
                            // Open respective tutor page
                            echo '<a href="tutor_profile.php?id=' . $user_id . '">';
+
                            echo '<img src="' . $pfp . '" style="width: 250px; height: 250px;">';
                            
                            echo '</a>';

@@ -241,28 +241,51 @@ include 'db.php';
          <div class="container">
             <div class="row">
                <div class="col-sm-12">
-                  <h1 class="services_taital">Tutors</h1>
-                  <p class="services_text">Our tutors can help you streamline your fitness journey and get you from zero to hero in no time. </p>
+                  
 
                   <section id="tutors" class="tutor-section">
 
-                  <div class="tutor-card">
-                  <img src="images/tutor_1.jpg" alt="Tutor 1">
-                  <h3 class="services_taital">Kevin Magnussen</h3>
-                  <p>Mircobiologist</p>
-                  </div>
+                  <div class="col-sm-12">
+                  <h1 class="services_taital">Tutors</h1>
+                  <p class="services_text">Our tutors can help you streamline your fitness journey and get you from zero to hero in no time. </p>
+                  <section id="tutors" class="tutor-section">
+                  
+                  <?php
+                  $sql = "SELECT tutor_name, bio, pfp_url, user_id FROM tutors WHERE status = 'accepted'";
+                  $result = $conn->query($sql);
 
-                  <div class="tutor-card">
-                  <img src="images/tutor_2.jpg" alt="Tutor 2">
-                  <h3 class="services_taital">Brennan Hook</h3>
-                  <p>Gooning Expert</p>
-                  </div>
+                  if ($result->num_rows > 0) {
+                     $count = 0; // Initialize counter
+                     while ($row = $result->fetch_assoc()) {
+                        if ($count >= 3) break; // Stop after 3 entries
 
-                  <div class="tutor-card">
-                  <img src="images/tutor_3.jpg" alt="Tutor 3">
-                  <h3 class="services_taital">Charli YxY </h3>
-                  <p>Powerlifter</p>
-                  </div>
+                        // Default profile picture
+                        $pfp = !empty($row['pfp_url']) ? htmlspecialchars($row['pfp_url']) : 'uploads/default_pfp.png';
+                        $user_id = urlencode($row['user_id']);
+
+                        echo '<div class="tutor-card">';
+
+                        if (isset(($_SESSION['user_id']))) {
+                           echo '<a href="tutor_profile.php?id=' . $user_id . '">';
+                        }
+
+                        echo '<img src="' . $pfp . '" style="width: 250px; height: 250px;">';
+                        echo '</a>';
+                        echo '<h3 class="services_taital">' . htmlspecialchars($row['tutor_name']) . '</h3>';
+                        echo '<p>' . htmlspecialchars($row['bio']) . '</p>';
+                        echo '</div>';
+
+                        $count++; // Increment counter
+                     }
+                  } else {
+                     echo '<p>No tutors available right now.</p>';
+                  }
+
+                  $conn->close();
+                  ?>
+
+                  </section>
+               </div>
 
                   </section>
                      <?php if (isset($_SESSION['user_id'])): ?>
@@ -271,15 +294,9 @@ include 'db.php';
                         </div>
 
                         <?php if (isset($_SESSION['is_tutor']) && $_SESSION['is_tutor'] == 0): ?>
-                           <!-- <div class="seemore_bt tutor_btn">
-                                 <a href="tutorregistration.php">Register as a Tutor</a>
-                           </div> -->
                         <?php endif; ?>
                      <?php else: ?>
-                        <!-- Optional: show nothing, or show link to sign up -->
-                        <!-- <div class="seemore_bt tutor_btn">
-                           <a href="signup.php">Sign up to see more</a>
-                        </div> -->
+                      
                      <?php endif; ?>
 
                </div>

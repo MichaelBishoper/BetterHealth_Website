@@ -42,7 +42,6 @@ if ($result->num_rows === 0) {
 }
 
 $stmt->close();
-header("Location: tutors.php"); 
+header("Location: tutor_profile.php?id=" . $tutor_id);
 exit;
 
-// Stillllllllllllllllll  nottttttttttttt workingggggggggggggggggggggggggg

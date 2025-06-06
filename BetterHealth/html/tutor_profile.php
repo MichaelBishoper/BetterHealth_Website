@@ -20,8 +20,7 @@ $stmt = $conn->prepare("SELECT * FROM tutors WHERE user_id = ?");
 $stmt->bind_param("i", $tutor_id);
 $stmt->execute();
 $result = $stmt->get_result();
-// debug info
-echo "Tutor ID: " . htmlspecialchars($tutor_id);
+
 
 if ($result->num_rows === 0) {
     echo "Tutor not found.";
@@ -85,15 +84,38 @@ $tutor = $result->fetch_assoc();
       }
 
       .tutor-card img {
-      }
-
-      img {
-       
+         border-radius: 100%;
       }
 
       .services_text {
          margin-bottom: 15px;
       }
+      .img_centered {
+         align-items: center;
+      }
+
+      .float_left {
+         float: left;
+         text-align: left;
+      }
+
+      .tutor-btn {
+      background-color: red;        
+      color: #fff;                   
+      border: 2px solid red;         
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      }
+
+      .tutor-btn:hover {
+      background-color: darkred;         
+      color: whitesmoke;                    
+      }
+
       </style>
    </head>
    <body>
@@ -153,8 +175,16 @@ $tutor = $result->fetch_assoc();
          </div>
       </div>
       <!--header section end -->
-      <!-- TUTORS section start -->
+
+
+
+
+
+      <!-- TUTORS section start 🛺🛺🛺🛺🛺🛺🛺🛺 --> 
       <?php
+
+      
+         // Unsubscribe Logic
          $subscribed = false;
          if (isset($_SESSION['user_id']) && isset($tutor_id)) {
          $stmt = $conn->prepare("SELECT 1 FROM tutor_subscribe WHERE user_id = ? AND tutor_id = ?");
@@ -168,11 +198,22 @@ $tutor = $result->fetch_assoc();
 
       <div class="services_section layout_padding" id="service">
          <div class="container">
-            <h1> This tutor is: <?php htmlspecialchars($tutor['tutor_name'])?>. </h1>
+            <?php
+            $pfp = !empty($tutor['pfp_url']) ? htmlspecialchars($tutor['pfp_url']) : 'uploads/default_pfp.png';
+            ?>
+
+            <img class="tutor-card" src="<?php echo $pfp; ?>" style="width: 250px; height: 250px;" alt="Tutor profile picture">
+            <h3 class="services_taital float_left"><?php echo htmlspecialchars($tutor['tutor_name'])?> </h3>
+            <h3 class="services_text float_left"><?php echo htmlspecialchars($tutor['bio'])?> </h3>
+
             <?php if (isset($_SESSION['user_id']) && isset($tutor_id)): ?>
         <form action="tutor_subscribe.php" method="POST">
             <input type="hidden" name="tutor_id" value="<?php echo $tutor_id; ?>">
-            <button type="submit" name="subscribe">Subscribe</button>
+            <button class="tutor-btn" type="submit" name="subscribe">
+
+            <?php echo $subscribed ? 'Unsubscribe' : 'Subscribe'; ?>
+
+            </button>
          </form>
 
                
@@ -181,7 +222,17 @@ $tutor = $result->fetch_assoc();
          </div>
          
          </div>
+
+         <?php
+        
+         ?>
+
       <!-- Tutors section end -->
+
+
+
+
+
       <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
