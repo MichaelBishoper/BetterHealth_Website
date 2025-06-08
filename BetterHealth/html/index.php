@@ -61,7 +61,21 @@ $randomTutor = $conn->query("SELECT * FROM tutors WHERE status = 'accepted' ORDE
          margin-top: 40px;
       }
 
-     
+     .tutor-img-center {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem; 
+      justify-content: space-between;
+      }
+
+      .featured-tutor-img {
+      max-width: 200px;
+      border-radius: 10px;
+      }
+
+      .tutor-text {
+      flex: 1;
+      }
       
       </style>
    </head>
@@ -179,10 +193,12 @@ $randomTutor = $conn->query("SELECT * FROM tutors WHERE status = 'accepted' ORDE
                      <div class="row">
                         <div class="col-sm-12">
                            <div class="banner_taital">
+                              <div class="tutor-img-center">
                               <h1 class="outstanding_text">Featured Tutor</h1>
                               <h1 class="coffee_text"><?= htmlspecialchars($randomTutor['tutor_name']) ?></h1>
                               <p class="there_text"><?= htmlspecialchars($randomTutor['bio']) ?></p>
-                              <img src="<?= htmlspecialchars(!empty($randomTutor['pfp_url']) ? $randomTutor['pfp_url'] : 'uploads/default_pfp.png') ?>" style="max-width: 200px; border-radius: 10px;">
+                              <img class="featured-tutor-img" at="Tutor Profile Picture" src="<?= htmlspecialchars(!empty($randomTutor['pfp_url']) ? $randomTutor['pfp_url'] : 'uploads/default_pfp.png') ?>" style="max-width: 200px; border-radius: 10px;">
+                              </div>
                               <?php if (isset($_SESSION['user_id'])): ?>
                                  <div class="learnmore_bt">
                                     <a href="tutor_profile.php?id=<?= urlencode($randomTutor['user_id']) ?>">View Profile</a>

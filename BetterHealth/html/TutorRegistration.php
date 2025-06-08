@@ -183,12 +183,12 @@ $errors = $_SESSION['errors'] ?? '';
 
             <div class="file-wrapper">
                 <input type="file" id="upload_file" name="upload_file"><br>
-                <div class="custom-file-btn"> Upload ID </div>
+                <div class="custom-file-btn"> Upload Profile Picture </div>
             </div>
             <div class="home-tutors">
             <button type="submit" id="submit" value="Submit">Register as a Tutor</button>  
+            <button class="cancelbtn" type="button" onclick="window.location.href='tutors.php'">Back</button>
             <button class="cancelbtn" type="button" onclick="window.location.href='index.php'">Home</button>
-            <button class="cancelbtn" type="button" onclick="window.location.href='index.php'">Tutors</button>
             </div>
 
             <?php if (!empty($errors)): ?>
