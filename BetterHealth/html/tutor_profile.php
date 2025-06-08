@@ -28,6 +28,12 @@ if ($result->num_rows === 0) {
 }
 
 $tutor = $result->fetch_assoc();
+$subCountStmt = $conn->prepare("SELECT COUNT(*) as total FROM tutor_subscribe WHERE tutor_id = ?");
+$subCountStmt->bind_param("i", $tutor_id);
+$subCountStmt->execute();
+$subCountResult = $subCountStmt->get_result()->fetch_assoc();
+$subscriberCount = $subCountResult['total'];
+$subCountStmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -208,6 +214,8 @@ $tutor = $result->fetch_assoc();
             <img class="tutor-card" src="<?php echo $pfp; ?>" style="width: 250px; height: 250px;" alt="Tutor profile picture">
             <h3 class="services_taital float_left"><?php echo htmlspecialchars($tutor['tutor_name'])?> </h3>
             <h3 class="services_text float_left"><?php echo htmlspecialchars($tutor['bio'])?> </h3>
+            
+            <p><strong><?= $subscriberCount ?></strong> Subscribers</p>
 
             <?php if (isset($_SESSION['user_id']) && isset($tutor_id)): ?>
                <form action="tutor_subscribe.php" method="POST">

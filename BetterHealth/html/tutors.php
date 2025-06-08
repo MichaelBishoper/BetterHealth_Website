@@ -1,6 +1,35 @@
 <!-- For admins to do admin things -->
 <?php session_start(); 
 include 'db.php';
+
+$subscribedTutors = null;
+$otherTutors = null;
+
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
+    //For tutor subscribed
+    $stmt = $conn->prepare("SELECT tutor_name, bio, pfp_url, t.user_id FROM tutors t 
+                            INNER JOIN tutor_subscribe ts ON t.user_id = ts.tutor_id 
+                            WHERE ts.user_id = ? AND t.status = 'accepted'");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $subscribedTutors = $stmt->get_result();
+    $stmt->close();
+
+    //For other tutors
+    $stmt = $conn->prepare("SELECT tutor_name, bio, pfp_url, user_id FROM tutors 
+                            WHERE status = 'accepted' AND user_id NOT IN 
+                                (SELECT tutor_id FROM tutor_subscribe WHERE user_id = ?)");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $otherTutors = $stmt->get_result();
+    $stmt->close();
+} else {
+    //if not yet login, ya show all tutors
+    $otherTutors = $conn->query("SELECT tutor_name, bio, pfp_url, user_id FROM tutors WHERE status = 'accepted'");
+}
+
 ?>
 
 
@@ -135,35 +164,37 @@ include 'db.php';
                   <h1 class="services_taital">Tutors</h1>
                   <p class="services_text">Our tutors can help you streamline your fitness journey and get you from zero to hero in no time. </p>
                   <section id="tutors" class="tutor-section">
-                  <?php
-                   $sql = "SELECT tutor_name, bio, pfp_url, user_id FROM tutors WHERE status = 'accepted'";
-                        $result = $conn->query($sql);
-                        
-                        if ($result->num_rows > 0) {
-                        while ($row = $result->fetch_assoc()) {
-                           // Default profile picture
-                           $pfp = !empty($row['pfp_url']) ? htmlspecialchars($row['pfp_url']) : 'uploads/default_pfp.png';
-                           $user_id = urlencode($row['user_id']);
+               <?php if (isset($_SESSION['user_id'])): ?>
+                  <h2 class="services_taital">Your Subscribed Tutors</h2>
+               <?php if ($subscribedTutors->num_rows > 0): ?>
+               <?php while ($row = $subscribedTutors->fetch_assoc()): ?>
+            <div class="tutor-card">
+               <a href="tutor_profile.php?id=<?= $row['user_id'] ?>">
+                  <img src="<?= htmlspecialchars($row['pfp_url']) ?>" style="width: 250px; height: 250px;">
+                     </a>
+                     <h3 class="services_taital"><?= htmlspecialchars($row['tutor_name']) ?></h3>
+                     <p><?= htmlspecialchars($row['bio']) ?></p>
+                  </div>
+               <?php endwhile; ?>
+               <?php else: ?>
+                  <p>You haven't subscribed to any tutors yet.</p>
+               <?php endif; ?>
+               <?php endif; ?>
 
-                           echo '<div class="tutor-card">';
-                           
-                           // Open respective tutor page
-                           echo '<a href="tutor_profile.php?id=' . $user_id . '">';
-
-                           echo '<img src="' . $pfp . '" style="width: 250px; height: 250px;">';
-                           
-                           echo '</a>';
-                           echo '<h3 class="services_taital">' . htmlspecialchars($row['tutor_name']) . '</h3>';
-                           echo '<p>' . htmlspecialchars($row['bio']) . '</p>';
-                           echo '</div>';
-                        }
-                        } else {
-                            echo '<p>No tutors available right now.</p>';
-                        }
-
-                        $conn->close();
-                  ?>
-
+         <h2 class="services_taital">All Tutors</h2>
+               <?php if ($otherTutors->num_rows > 0): ?>
+               <?php while ($row = $otherTutors->fetch_assoc()): ?>
+            <div class="tutor-card">
+               <a href="tutor_profile.php?id=<?= $row['user_id'] ?>">
+               <img src="<?= htmlspecialchars($row['pfp_url']) ?>" style="width: 250px; height: 250px;">
+               </a>
+                     <h3 class="services_taital"><?= htmlspecialchars($row['tutor_name']) ?></h3>
+                  <p><?= htmlspecialchars($row['bio']) ?></p>
+               </div>
+                        <?php endwhile; ?>
+                        <?php else: ?>
+                     <p>No tutors available right now.</p>
+                     <?php endif; ?>
                   </section>
                   <?php if (isset($_SESSION['is_tutor']) && $_SESSION['is_tutor'] == 1): ?>
                      <!-- User is tutor, do nothing or put tutor-specific code here -->

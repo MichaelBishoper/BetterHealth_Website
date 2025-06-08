@@ -74,7 +74,7 @@ $result = $stmt->get_result();
         <?php if ($_SESSION['is_tutor'] == 1): ?>
             <a href="index.php">Home</a>
         <?php endif; ?>
-        <a href="article+gallery.php">Articles</a>
+        <a href="article_gallery.php">Articles</a>
         <?php if ($_SESSION['is_admin'] == 1): ?>
             <a href="create_article.php">Add Articles</a>
         <?php endif; ?>
