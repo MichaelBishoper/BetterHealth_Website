@@ -196,36 +196,76 @@ $tutor = $result->fetch_assoc();
       }
       ?>
 
-      <div class="services_section layout_padding" id="service">
-         <div class="container">
-            <?php
-            $pfp = !empty($tutor['pfp_url']) ? htmlspecialchars($tutor['pfp_url']) : 'uploads/default_pfp.png';
-            ?>
+    <div class="services_section layout_padding" id="service">
+   <div class="container">
+      <div class="row">
 
+         <!-- Left column: Profile -->
+         <div class="col-md-4">
+            <?php
+               $pfp = !empty($tutor['pfp_url']) ? htmlspecialchars($tutor['pfp_url']) : 'uploads/default_pfp.png';
+            ?>
             <img class="tutor-card" src="<?php echo $pfp; ?>" style="width: 250px; height: 250px;" alt="Tutor profile picture">
             <h3 class="services_taital float_left"><?php echo htmlspecialchars($tutor['tutor_name'])?> </h3>
             <h3 class="services_text float_left"><?php echo htmlspecialchars($tutor['bio'])?> </h3>
 
             <?php if (isset($_SESSION['user_id']) && isset($tutor_id)): ?>
-        <form action="tutor_subscribe.php" method="POST">
-            <input type="hidden" name="tutor_id" value="<?php echo $tutor_id; ?>">
-            <button class="tutor-btn" type="submit" name="subscribe">
-
-            <?php echo $subscribed ? 'Unsubscribe' : 'Subscribe'; ?>
-
-            </button>
-         </form>
-
-               
+               <form action="tutor_subscribe.php" method="POST">
+                  <input type="hidden" name="tutor_id" value="<?php echo $tutor_id; ?>">
+                  <button class="tutor-btn" type="submit" name="subscribe">
+                     <?php echo $subscribed ? 'Unsubscribe' : 'Subscribe'; ?>
+                  </button>
+               </form>
             <?php endif; ?>
          </div>
-         </div>
-         
+
+         <!-- Right column: Articles -->
+         <div class="col-md-8">
+            <div class="row">
+               <?php
+               $sql = "SELECT * FROM articles WHERE user_id = ? ORDER BY created_at DESC";
+               $stmt = $conn->prepare($sql);
+               $stmt->bind_param("i", $tutor_id);
+               $stmt->execute();
+               $result = $stmt->get_result();
+
+               if ($result && $result->num_rows > 0):
+                  while ($row = $result->fetch_assoc()):
+               ?>
+                  <div class="col-md-6"> <!-- 6 makes 2 articles per row -->
+                     <div class="container_main">
+                        <p class="gallery-item">
+                           <?= htmlspecialchars($row['title']) ?><br>
+                           <small><em>by <?= htmlspecialchars($row['author']) ?></em></small>
+                        </p>
+                        <img src="images/gallery_img<?= rand(1,3) ?>.jpg" alt="Article Image" class="image">
+                        <div class="overlay">
+                           <div class="text">
+                              <?php if (isset($_SESSION['user_id'])): ?>
+                                 <a href="article_template.php?id=<?= htmlspecialchars($row['id']); ?>">
+                                    Read More <i class="fa fa-search" aria-hidden="true"></i>
+                                 </a>
+                              <?php else: ?>
+                                 <span style="cursor: not-allowed;" title="Login Required">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                 </span>
+                              <?php endif; ?>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               <?php
+                  endwhile;
+               else:
+                  echo "<p>No articles found.</p>";
+               endif;
+               ?>
+            </div>
          </div>
 
-         <?php
-        
-         ?>
+      </div>
+   </div>
+</div>
 
       <!-- Tutors section end -->
 

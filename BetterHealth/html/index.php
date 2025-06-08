@@ -1,5 +1,11 @@
 <?php session_start(); 
 include 'db.php';
+// Fetch one random article
+$randomArticle = $conn->query("SELECT * FROM articles ORDER BY RAND() LIMIT 1")->fetch_assoc();
+
+// Fetch one random tutor
+$randomTutor = $conn->query("SELECT * FROM tutors WHERE status = 'accepted' ORDER BY RAND() LIMIT 1")->fetch_assoc();
+                  
 ?>
 
 <!DOCTYPE html>
@@ -145,6 +151,52 @@ include 'db.php';
                         </div>
                      </div>
                   </div>
+
+                  <!-- Random Article Slide -->
+                  <div class="carousel-item">
+                     <div class="row">
+                        <div class="col-sm-12">
+                           <div class="banner_taital">
+                              <h1 class="outstanding_text">Featured Article</h1>
+                              <h1 class="coffee_text"><?= htmlspecialchars($randomArticle['title']) ?></h1>
+                              <p class="there_text"><?= htmlspecialchars(mb_strimwidth($randomArticle['content'], 0, 200, '...')) ?></p>
+                              <?php if (isset($_SESSION['user_id'])): ?>
+                                 <div class="learnmore_bt">
+                                    <a href="article_template.php?id=<?= $randomArticle['id'] ?>">Read More</a>
+                                 </div>
+                              <?php else: ?>
+                                 <div class="learnmore_bt">
+                                    <a href="signup.php">Login to View</a>
+                                 </div>
+                              <?php endif; ?>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <!-- Random Tutor Slide -->
+                  <div class="carousel-item">
+                     <div class="row">
+                        <div class="col-sm-12">
+                           <div class="banner_taital">
+                              <h1 class="outstanding_text">Featured Tutor</h1>
+                              <h1 class="coffee_text"><?= htmlspecialchars($randomTutor['tutor_name']) ?></h1>
+                              <p class="there_text"><?= htmlspecialchars($randomTutor['bio']) ?></p>
+                              <img src="<?= htmlspecialchars(!empty($randomTutor['pfp_url']) ? $randomTutor['pfp_url'] : 'uploads/default_pfp.png') ?>" style="max-width: 200px; border-radius: 10px;">
+                              <?php if (isset($_SESSION['user_id'])): ?>
+                                 <div class="learnmore_bt">
+                                    <a href="tutor_profile.php?id=<?= urlencode($randomTutor['user_id']) ?>">View Profile</a>
+                                 </div>
+                              <?php else: ?>
+                                 <div class="learnmore_bt">
+                                    <a href="signup.php">Login to View</a>
+                                 </div>
+                              <?php endif; ?>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
                </div>
                <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
                <i class="fa fa-angle-left"></i>
