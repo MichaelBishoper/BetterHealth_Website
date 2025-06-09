@@ -1,6 +1,6 @@
 <?php session_start(); 
 include 'db.php';
-// Fetch one random article
+// Fetch one random article - change on page reload
 $randomArticle = $conn->query("SELECT * FROM articles ORDER BY RAND() LIMIT 1")->fetch_assoc();
 
 // Fetch one random tutor
@@ -51,7 +51,7 @@ $randomTutor = $conn->query("SELECT * FROM tutors WHERE status = 'accepted' ORDE
          display: flex;
       }
 
-      .seemore_bt a {
+      .seemore_bt a { 
          width: 100%;
          text-align: center;
          font-size: 16px;
@@ -68,7 +68,7 @@ $randomTutor = $conn->query("SELECT * FROM tutors WHERE status = 'accepted' ORDE
       justify-content: space-between;
       }
 
-      .featured-tutor-img {
+      .featured-tutor-img { 
       max-width: 200px;
       border-radius: 10px;
       }
@@ -176,7 +176,8 @@ $randomTutor = $conn->query("SELECT * FROM tutors WHERE status = 'accepted' ORDE
                               <p class="there_text"><?= htmlspecialchars(mb_strimwidth($randomArticle['content'], 0, 200, '...')) ?></p>
                               <?php if (isset($_SESSION['user_id'])): ?>
                                  <div class="learnmore_bt">
-                                    <a href="article_template.php?id=<?= $randomArticle['id'] ?>">Read More</a>
+                                    <!-- Filter for saftey -->
+                                    <a href="article_template.php?id=<?= urldecode($randomArticle['id']) ?>">Read More</a>
                                  </div>
                               <?php else: ?>
                                  <div class="learnmore_bt">
@@ -201,6 +202,7 @@ $randomTutor = $conn->query("SELECT * FROM tutors WHERE status = 'accepted' ORDE
                               </div>
                               <?php if (isset($_SESSION['user_id'])): ?>
                                  <div class="learnmore_bt">
+                                    <!-- Filter for saftey -->
                                     <a href="tutor_profile.php?id=<?= urlencode($randomTutor['user_id']) ?>">View Profile</a>
                                  </div>
                               <?php else: ?>
@@ -333,17 +335,25 @@ $randomTutor = $conn->query("SELECT * FROM tutors WHERE status = 'accepted' ORDE
 
                         echo '<div class="tutor-card">';
 
-                        if (isset(($_SESSION['user_id']))) {
-                           echo '<a href="tutor_profile.php?id=' . $user_id . '">';
+                        if (isset($_SESSION['user_id'])) {
+                           echo '<a href="tutor_profile.php?id=' . htmlspecialchars($user_id) . '">';
                         }
 
-                        echo '<img src="' . $pfp . '" style="width: 250px; height: 250px;">';
-                        echo '</a>';
+                        echo '<img src="' . htmlspecialchars($pfp) . '" style="width: 250px; height: 250px;">';
+
+                        if (isset($_SESSION['user_id'])) {
+                           echo '</a>';
+}
                         echo '<h3 class="services_taital">' . htmlspecialchars($row['tutor_name']) . '</h3>';
                         echo '<p>' . htmlspecialchars($row['bio']) . '</p>';
                         echo '</div>';
 
                         $count++; // Increment counter
+
+                        
+
+
+
                      }
                   } else {
                      echo '<p>No tutors available right now.</p>';

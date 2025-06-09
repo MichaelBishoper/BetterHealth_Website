@@ -33,6 +33,8 @@ $conn->close();
 </head>
 <body>
     <h2><?php echo $statusMessage; ?></h2>
+    <p> <a href="dashboard.php">Back</a></p>
+    <p> <a href="dashboard.php">Home</a></p>
 </body>
 </html>
 

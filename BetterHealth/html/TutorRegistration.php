@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit(); 
+}
 require_once 'check_existing_tutor.php'; // kicks if user is already a tutor or pending 
 
 $old_name = $_SESSION['old']['tutor_name'] ?? '';

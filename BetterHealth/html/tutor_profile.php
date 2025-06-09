@@ -1,19 +1,23 @@
 <?php
 
 session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit(); 
+}
 require_once 'db.php';
 
 $conn = $GLOBALS['conn'];
 $user_id = $_SESSION['user_id'];
-$tutor_id = intval($_GET['id']); 
+$tutor_id = intval($_GET['id']); // Fetch ID from url with GET
 if (!isset($_GET['id'])) {
     echo "No tutor ID provided.";
     exit;
 }
 
-// sanitize get input
-$tutor_id = intval($_GET['id']); 
-
+// Tutor We Want to Subscribe has (User_ID2)
+// We want to subscribe to THAT User_ID with our USer_ID (User_ID1)
+// How to get User_ID2: From URL
 
 // Fetch tutor info
 $stmt = $conn->prepare("SELECT * FROM tutors WHERE user_id = ?");

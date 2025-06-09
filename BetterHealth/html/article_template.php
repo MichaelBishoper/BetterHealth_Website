@@ -102,7 +102,7 @@ if (isset($_SESSION['user_id']) && $result && $row) {
                   <a class="nav-link" href="guides.php">Guides</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link" href="#">Tutors</a>
+                  <a class="nav-link" href="tutors.php">Tutors</a>
                </li>
                <li class="nav-item">
                   <a class="nav-link" href="contact_us.php">Contact Us</a>

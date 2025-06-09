@@ -169,9 +169,10 @@ if (isset($_SESSION['user_id'])) {
                <?php if ($subscribedTutors->num_rows > 0): ?>
                <?php while ($row = $subscribedTutors->fetch_assoc()): ?>
             <div class="tutor-card">
-               <a href="tutor_profile.php?id=<?= $row['user_id'] ?>">
+               <a href="login.php">
                   <img src="<?= htmlspecialchars($row['pfp_url']) ?>" style="width: 250px; height: 250px;">
-                     </a>
+               </a>
+
                      <h3 class="services_taital"><?= htmlspecialchars($row['tutor_name']) ?></h3>
                      <p><?= htmlspecialchars($row['bio']) ?></p>
                   </div>

@@ -6,7 +6,7 @@ function tutor_validate() {
     
     $user_id = $_SESSION['user_id'] ?? null;
     if (!$user_id) {
-        header("Location: index.php");
+        header("Location: login.php");
         exit;
     }
 
