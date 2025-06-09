@@ -94,7 +94,7 @@ $randomTutor = $conn->query("SELECT * FROM tutors WHERE status = 'accepted' ORDE
                            <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="#about_us">About Us</a>
+                           <a class="nav-link" href="about_us.php">About Us</a>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="guides.php">Guides</a>

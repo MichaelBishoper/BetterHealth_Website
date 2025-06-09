@@ -1,12 +1,16 @@
-<?php 
-session_start();
+<?php session_start(); 
 include 'db.php';
+// Fetch one random article
+$randomArticle = $conn->query("SELECT * FROM articles ORDER BY RAND() LIMIT 1")->fetch_assoc();
+
+// Fetch one random tutor
+$randomTutor = $conn->query("SELECT * FROM tutors WHERE status = 'accepted' ORDER BY RAND() LIMIT 1")->fetch_assoc();
+                  
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-      <title>Guides</title>
+   <head>
       <!-- basic -->
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +19,7 @@ include 'db.php';
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      
+      <title>BetterHealth Baby!!!</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -36,7 +40,8 @@ include 'db.php';
       <link rel="stylesheet" href="css/owl.theme.default.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
       <style>
-         .gallery_section {
+        
+    .gallery_section {
             width: 100%;
             float: left;
             padding-bottom: 0px;
@@ -69,7 +74,7 @@ include 'db.php';
          }
 
          .container_main {
-            margin-bottom: 30px;
+            margin-bottom: 300px;
          }
 
          .liked_heart {
@@ -80,12 +85,14 @@ include 'db.php';
             color: grey;
          }
 
-         
-
+         .layout_padding {
+            padding-bottom: 100px;
+         }
+      
       </style>
-</head>
-<body>
-    <!--header section start -->
+   </head>
+   <body>
+      <!--header section start -->
       <div class="header_section">
          <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -141,161 +148,15 @@ include 'db.php';
          </div>
       </div>
       <!--header section end -->
-    <!-- GUIDES section start -->
-      <div class="gallery_section layout_padding" id="gallery">
-         <div class="container">
-<?php 
-   $liked_articles = [];
-   if (isset($_SESSION['user_id'])) {
-      $user_id = $_SESSION['user_id'];
-      $like_sql = "SELECT article_id FROM article_likes WHERE user_id = ?";
-      $stmt = $conn->prepare($like_sql);
-      $stmt->bind_param("i", $user_id);
-      $stmt->execute();
-      $like_result = $stmt->get_result();
-      while ($like_row = $like_result->fetch_assoc()) {
-         $liked_articles[] = $like_row['article_id'];
-      }
-      $stmt->close();
-   }
-
-   // Filter only liked articles
-   $sql = "
-   SELECT a.*
-   FROM articles a
-   INNER JOIN article_likes al ON a.id = al.article_id
-   WHERE al.user_id = ?
-   ORDER BY a.created_at DESC
-   ";
-
-   $stmt = $conn->prepare($sql);
-   $stmt->bind_param("i", $_SESSION['user_id']);
-   $stmt->execute();
-   $result = $stmt->get_result();
-?>
-            
-            <!-- Only Show when user has liked a guide -->
-            
-
-            <div class="row">
-               <div class="col-sm-12">
-                  <?php if($result->num_rows > 0): ?>
-                  <h1 class="gallery_taital">Liked Guides</h1>
-                  <?php endif ?>
-               </div>
-            </div>
-            
-            <div class="">
-               <div class="gallery_section_2">
-                  <div class="row"> 
-            
-            <!-- Iterates over the user's LIKED GUIDES -->
-
-<?php
-   if ($result && $result->num_rows > 0):
-       while ($row = $result->fetch_assoc()):  // Start While Loop
-?>
-   <div class="col-md-4"> 
-      <div class="container_main">
-         <p class="gallery-item">
-            <?= htmlspecialchars($row['title']) ?><br>
-            <small><em>by <?= htmlspecialchars($row['author']) ?></em></small>
-         </p>
-         <img src="images/gallery_img<?= rand(1,3) ?>.jpg" alt="Article Image" class="image">
-         <div class="overlay">
-            <div class="text">
-               <?php if (isset($_SESSION['user_id'])): ?>
-               <a href="article_template.php?id=<?php echo htmlspecialchars($row['id']); ?>"> 
-                  Read More <i class="fa fa-search" aria-hidden="true"></i>
-               </a>
-               <?php else: ?>
-               <span style="cursor: not-allowed;" title="Login Required">
-                  <i class="fa fa-lock" aria-hidden="true"></i>
-               </span>
-               <?php endif; ?>
-            </div>
-         </div>
-                  
-         <?php
-            $article_id = $row['id'];
-            $is_liked = in_array($article_id, $liked_articles);
-         ?>
-         <div class="like-section">
-            <?php if (isset($_SESSION['user_id'])): ?>
-               <form action="like_article.php" method="POST" style="display:inline;">
-                  <input type="hidden" name="article_id" value="<?= $article_id ?>">
-                  <button type="submit" name="like" class="like-btn" style="background:none;border:none;">
-                     <?php if ($is_liked): ?>
-                        <i class="fa fa-heart liked_heart"></i> Liked
-                     <?php else: ?>
-                        <i class="fa fa-heart unliked_heart"></i> Like
-                     <?php endif; ?>
-                  </button>
-               </form>
-            <?php else: ?>
-               <span title="Login to like">🤍</span>
-            <?php endif; ?>
-         </div>
-
-      </div> <!-- .container_main -->
-   </div> <!-- .col-md-4 -->
-
-<?php
-            endwhile;  //  END LOOP
-         else:
-            echo "<p>Love an article? Like it to save it! </p>";
-         endif;
-?>
-</div>
-   
-
-   <div class="row">
-      <div class="col-sm-12">
-         <h1 class="gallery_taital">All Guides</h1>
+      <!--About us section start -->
+      <div class="gallery_section layout_padding">
+        <div class="container">
+        <h1> We are BetterHealth </h1>
+        <p> This fitness website consists of information curated from the highest echelons of internet health and fitness knowledge. It is designed to help you and guide you throughout your fitness journey, ensuring you get the most benefits from your diets, workouts, etc. This website can act as a guideline to overall health and wellbeing, keeping you healthy, whilst doing most of the scheduling and planning.</p>
       </div>
-   </div>
-      
-    <div class="row"> <!-- Iterates Over While Loop -->
-    <?php
-    $sql = "SELECT * FROM articles ORDER BY created_at DESC";
-    $result = $conn->query($sql);
-
-    if ($result && $result->num_rows > 0):
-        while ($row = $result->fetch_assoc()):
-    ?>
-    <div class="col-md-4"> 
-        <div class="container_main">
-            <p class="gallery-item">
-                <?= htmlspecialchars($row['title']) ?><br>
-                <small><em>by <?= htmlspecialchars($row['author']) ?></em></small>
-            </p>
-            <img src="images/gallery_img<?= rand(1,3) ?>.jpg" alt="Article Image" class="image">
-            <div class="overlay">
-                <div class="text">
-                      <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="article_template.php?id=<?php echo htmlspecialchars($row['id']); ?>"> Read More <i class="fa fa-search" aria-hidden="true"></i>
-                    </a>
-                     <?php else: ?>
-                     <span style="cursor: not-allowed;" title="Login Required">
-                           <i class="fa fa-lock" aria-hidden="true"></i>
-                     </span>
-                  <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php
-        endwhile;
-        else:
-            echo "<p>Love an article? Like it to save it! </p>";
-        endif;
-    ?>
-    </div>
-</div>
-   </div>
       </div>
-      <!-- GUIDES section end -->
-       <!-- footer section start -->
+      <!--About us section end -->
+      <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
             <div class="row">
@@ -380,7 +241,7 @@ include 'db.php';
          </div>
       </div>
       <!-- footer section end -->
-       <!-- copyright section start -->
+      <!-- copyright section start -->
       <div class="copyright_section">
          <div class="container">
             <p class="copyright_text">2025 All Rights Reserved.</p>
@@ -402,5 +263,5 @@ include 'db.php';
       return confirm("Are you sure you want to log out?");
       }
       </script>
-</body>
-</html>
+      </body>
+      </html>
