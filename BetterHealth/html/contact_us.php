@@ -1,39 +1,11 @@
-<?php
+<?php session_start(); 
+include 'db.php';
+// Fetch one random article
+$randomArticle = $conn->query("SELECT * FROM articles ORDER BY RAND() LIMIT 1")->fetch_assoc();
 
-session_start();
-require_once 'db.php';
-
-$conn = $GLOBALS['conn'];
-$user_id = $_SESSION['user_id'];
-$tutor_id = intval($_GET['id']); 
-if (!isset($_GET['id'])) {
-    echo "No tutor ID provided.";
-    exit;
-}
-
-// sanitize get input
-$tutor_id = intval($_GET['id']); 
-
-
-// Fetch tutor info
-$stmt = $conn->prepare("SELECT * FROM tutors WHERE user_id = ?");
-$stmt->bind_param("i", $tutor_id);
-$stmt->execute();
-$result = $stmt->get_result();
-
-
-if ($result->num_rows === 0) {
-    echo "Tutor not found.";
-    exit;
-}
-
-$tutor = $result->fetch_assoc();
-$subCountStmt = $conn->prepare("SELECT COUNT(*) as total FROM tutor_subscribe WHERE tutor_id = ?");
-$subCountStmt->bind_param("i", $tutor_id);
-$subCountStmt->execute();
-$subCountResult = $subCountStmt->get_result()->fetch_assoc();
-$subscriberCount = $subCountResult['total'];
-$subCountStmt->close();
+// Fetch one random tutor
+$randomTutor = $conn->query("SELECT * FROM tutors WHERE status = 'accepted' ORDER BY RAND() LIMIT 1")->fetch_assoc();
+                  
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +19,7 @@ $subCountStmt->close();
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Tutors Page</title>
+      <title>BetterHealth Baby!!!</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -68,7 +40,7 @@ $subCountStmt->close();
       <link rel="stylesheet" href="css/owl.theme.default.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
       <style>
-         .tutor-btn {
+               .tutor-btn {
          color: #10e2bd;
          font-size: 0.5rem;
       }
@@ -89,66 +61,46 @@ $subCountStmt->close();
          margin-top: 40px;
       }
 
-      .tutor-card img {
-         border-radius: 100%;
+     .tutor-img-center {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem; 
+      justify-content: space-between;
       }
 
-      .services_text {
-         margin-bottom: 15px;
-      }
-      .img_centered {
-         align-items: center;
+      .featured-tutor-img {
+      max-width: 200px;
+      border-radius: 10px;
       }
 
-      .float_left {
-         float: left;
-         text-align: left;
+      .tutor-text {
+      flex: 1;
       }
-
-      .tutor-btn {
-      background-color: red;        
-      color: #fff;                   
-      border: 2px solid red;         
-      padding: 10px 20px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-      }
-
-      .tutor-btn:hover {
-      background-color: darkred;         
-      color: whitesmoke;                    
-      }
-
-      </style>
-   </head>
-   <body>
-      <!--header section start -->
+      
+   </style>
+    </head>
+      <body>
+         <!--header section start -->
       <div class="header_section">
          <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <div class="logo"><a href="index.php"><img src="images/newlogo.png"></a></div>
+               <div class="logo"><a href="index.php"><img src="images/newLogo.png"></a></div>
                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
                </button>
                <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                           <a class="nav-link" href="tutors.php">Back</a>
+                           <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="about_us.php">About Us</a>
+                           <a class="nav-link" href="#about_us">About Us</a>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="guides.php">Guides</a>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="tutors.php">Tutors</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="contact_us.php">Contact Us</a>
                         </li>
 
                         <!-- PHP -->
@@ -158,7 +110,7 @@ $subCountStmt->close();
                         <li class="nav-item">
                            <a class="nav-link" href="logout.php" onclick="return confirmLogout();">Logout</a>
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                            <a class="nav-link" href="<?php echo ($_SESSION['is_admin'] == 1) ? 'admin.php' : 'dashboard.php'; ?>">Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!</a>
                         </li>
                         <?php else: ?>
@@ -181,106 +133,45 @@ $subCountStmt->close();
          </div>
       </div>
       <!--header section end -->
-
-
-
-
-
-      <!-- TUTORS section start 🛺🛺🛺🛺🛺🛺🛺🛺 --> 
-      <?php
-
-      
-         // Unsubscribe Logic
-         $subscribed = false;
-         if (isset($_SESSION['user_id']) && isset($tutor_id)) {
-         $stmt = $conn->prepare("SELECT 1 FROM tutor_subscribe WHERE user_id = ? AND tutor_id = ?");
-         $stmt->bind_param("ii", $_SESSION['user_id'], $tutor_id);
-         $stmt->execute();
-         $stmt->store_result();
-         $subscribed = $stmt->num_rows > 0;
-         $stmt->close();
-      }
-      ?>
-
-    <div class="services_section layout_padding" id="service">
-   <div class="container">
-      <div class="row">
-
-         <!-- Left column: Profile -->
-         <div class="col-md-4">
-            <?php
-               $pfp = !empty($tutor['pfp_url']) ? htmlspecialchars($tutor['pfp_url']) : 'uploads/default_pfp.png';
-            ?>
-            <img class="tutor-card" src="<?php echo $pfp; ?>" style="width: 250px; height: 250px;" alt="Tutor profile picture">
-            <h3 class="services_taital float_left"><?php echo htmlspecialchars($tutor['tutor_name'])?> </h3>
-            <h3 class="services_text float_left"><?php echo htmlspecialchars($tutor['bio'])?> </h3>
-            
-            <p><strong><?= $subscriberCount ?></strong> Subscribers</p>
-
-            <?php if (isset($_SESSION['user_id']) && isset($tutor_id)): ?>
-               <form action="tutor_subscribe.php" method="POST">
-                  <input type="hidden" name="tutor_id" value="<?php echo $tutor_id; ?>">
-                  <button class="tutor-btn" type="submit" name="subscribe">
-                     <?php echo $subscribed ? 'Unsubscribe' : 'Subscribe'; ?>
-                  </button>
-               </form>
-            <?php endif; ?>
+        <!-- contact section start -->
+      <div class="contact_section layout_padding">
+         <div class="container">
+            <h1 class="contact_text" id="contact">Contact Us</h1>
          </div>
-
-         <!-- Right column: Articles -->
-         <div class="col-md-8">
+      </div>
+      <div class="contact_section_2 layout_padding">
+         <div class="container-fluid">
             <div class="row">
-               <?php
-               $sql = "SELECT * FROM articles WHERE user_id = ? ORDER BY created_at DESC";
-               $stmt = $conn->prepare($sql);
-               $stmt->bind_param("i", $tutor_id);
-               $stmt->execute();
-               $result = $stmt->get_result();
-
-               if ($result && $result->num_rows > 0):
-                  while ($row = $result->fetch_assoc()):
-               ?>
-                  <div class="col-md-6"> <!-- 6 makes 2 articles per row -->
-                     <div class="container_main">
-                        <p class="gallery-item">
-                           <?= htmlspecialchars($row['title']) ?><br>
-                           <small><em>by <?= htmlspecialchars($row['author']) ?></em></small>
-                        </p>
-                        <img src="images/gallery_img<?= rand(1,3) ?>.jpg" alt="Article Image" class="image">
-                        <div class="overlay">
-                           <div class="text">
-                              <?php if (isset($_SESSION['user_id'])): ?>
-                                 <a href="article_template.php?id=<?= htmlspecialchars($row['id']); ?>">
-                                    Read More <i class="fa fa-search" aria-hidden="true"></i>
-                                 </a>
-                              <?php else: ?>
-                                 <span style="cursor: not-allowed;" title="Login Required">
-                                    <i class="fa fa-lock" aria-hidden="true"></i>
-                                 </span>
-                              <?php endif; ?>
-                           </div>
+               <div class="col-md-6 padding_0">
+                  <div class="mail_section">
+                     <div class="email_text">
+                        <div class="form-group">
+                           <input type="text" class="email-bt" placeholder="Name" name="Email">
+                        </div>
+                        <div class="form-group">
+                           <input type="text" class="email-bt" placeholder="Email" name="Email">
+                        </div>
+                        <div class="form-group">
+                           <input type="text" class="email-bt" placeholder="Phone Number" name="Email">
+                        </div>
+                        <div class="form-group">
+                           <textarea class="massage-bt" placeholder="Message" rows="5" id="comment" name="Massage"></textarea>
+                        </div>
+                        <div class="send_btn">
+                           <div type="text" class="main_bt"><a href="#">SEND</a></div>
                         </div>
                      </div>
                   </div>
-               <?php
-                  endwhile;
-               else:
-                  echo "<p>No articles found.</p>";
-               endif;
-               ?>
+               </div>
+               <div class="col-md-6 padding_0">
+                  <div class="map-responsive">
+                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.9504567604404!2d106.6554462!3d-6.2250867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fbdc1d759ed1%3A0x60869415b1989a57!2sThe%20Prominence%20Office%20Tower!5e1!3m2!1sen!2sid!4v1743687655722!5m2!1sen!2sid" width="760" height="509.5" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                  </div>
+               </div>
             </div>
          </div>
-
       </div>
-   </div>
-</div>
-
-      <!-- Tutors section end -->
-
-
-
-
-
+      <!-- contact section end -->
       <!-- footer section start -->
       <div class="footer_section layout_padding">
          <div class="container">
@@ -298,7 +189,7 @@ $subCountStmt->close();
                         <li><a href="about_us.php">About Us</a></li>
                         <li><a href="guides.php">Guides</a></li>
                         <li><a href="tutors.php">Tutors</a></li>
-                        <li><a href="contact_us.php">Contact Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
 
                         <?php if (isset($_SESSION['user_id'])): ?> <!--Show when logged in -->
                         <li><a class="footer_menu" href=<?php echo ($_SESSION['is_admin'] == 1) ? 'admin.php' : 'dashboard.php'; ?>> Account</a> </li>
@@ -387,6 +278,6 @@ $subCountStmt->close();
       function confirmLogout() {
       return confirm("Are you sure you want to log out?");
       }
-      </script>   
-   </body>
-</html>
+      </script>
+      </body>
+      </html>

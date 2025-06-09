@@ -288,7 +288,7 @@ if ($isTutor == 1) {
                   </div>
                </div>
 
-               <!-- Fix spacing issue (Same Solution as above--> 
+                <!-- Fix spacing issue (Same Solution as above--> 
                <div class="col-lg-3 col-sm-6">
                   <div class="footer_menu"> 
                   <h1 class="useful_text">Useful Links</h1>
@@ -296,16 +296,16 @@ if ($isTutor == 1) {
                   <a class="nav-link" href="https://www.youtube.com/@Talon_Fitness">Talon Fitness</a>
                   </li>
                   <li class="nav-item">
-                  <a class="nav-link" href="https://www.youtube.com/@Talon_Fitness">Muscle Mommy</a>
+                  <a class="nav-link" href="https://www.youtube.com/@theleanbeefpatty/videos">Muscle Mommy</a>
                   </li>
                   <li class="nav-item">
-                  <a class="nav-link" href="https://www.youtube.com/@Talon_Fitness">Muscle Mommy</a>
+                  <a class="nav-link" href="https://www.youtube.com/watch?v=DSJ_afBSpEk">Psychology of the Workout</a>
                   </li>
                   <li class="nav-item">
-                  <a class="nav-link" href="https://www.youtube.com/@Talon_Fitness">Muscle Mommy</a>
+                  <a class="nav-link" href="https://www.youtube.com/@Talon_Fitness">Music for Workouts</a>
                   </li>
                   <li class="nav-item">
-                  <a class="nav-link" href="https://www.youtube.com/@Talon_Fitness">Muscle Mommy</a>
+                  <a class="nav-link" href="https://www.youtube.com/@Talon_Fitness">HybridCalesthenics</a>
                   </li>
                   </div>
                   
